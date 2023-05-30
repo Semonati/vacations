@@ -14,12 +14,12 @@ const NavItem = ({ to, label, icon, selected, setSelected }) => {
     <MenuItem
       active={selected === label}
       style={{
-        color: colors.gray[100],
+        // color: colors.gray[100],
       }}
       onClick={() => setSelected(label)}
       icon={icon}
     >
-      <Typography color={colors.blue[300]}>{label}</Typography>
+      <Typography color={colors.blue[400]}>{label}</Typography>
       <Link to={to} />
     </MenuItem>
   );

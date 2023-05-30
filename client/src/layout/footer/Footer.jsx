@@ -20,8 +20,6 @@ const Footer = () => {
         background: colors.primary[400],
       }}
     >
-      <Box></Box>
-      <Box></Box>
       <Box>
         <CopyrightOutlinedIcon />
       </Box>

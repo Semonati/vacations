@@ -7,7 +7,7 @@ import VacationBody from "./VacationBody";
 
 const Vacation = ({ vacation }) => {
   return (
-    <Box display="flex" justifyContent="space-between">
+    <Box display="flex" justifyContent="space-between" height="50vh">
       <Box>
         <VacationImage image={vacation.image} />
       </Box>

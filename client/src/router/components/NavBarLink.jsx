@@ -13,10 +13,7 @@ const NavBarLink = ({ to, children }) => {
 NavBarLink.propTypes = {
   to: string.isRequired,
   children: node.isRequired,
-  // sx: object.isRequired,
 };
 
-// NavBarLink.defaultProps = {
-//   sx: { color: "#000" },
-// };
+
 export default NavBarLink;

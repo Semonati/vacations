@@ -16,8 +16,9 @@ const LoginPage = () => {
     loginSchema,
     handleLogin
   );
+  // const user = true;
   const user = null;
-  // if (!user) return <Navigate replace to={ROUTES.ROOT} />;
+  if (user) return <Navigate replace to={ROUTES.ROOT} />;
 
   return (
     <Container

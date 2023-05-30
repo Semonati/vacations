@@ -13,6 +13,7 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import ROUTES from "../../router/routesModel";
 import { ColorModeContext, tokens } from "../../theme";
 import { useUser } from "../../users/providers/UserProviders";
+import { setColorModeInLocalStorage } from "../../utils/colorModeInLocalStorage";
 
 const Topbar = () => {
   const user = useUser();
@@ -22,6 +23,8 @@ const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  setColorModeInLocalStorage(theme.palette.mode);
+   
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
@@ -40,7 +43,7 @@ const Topbar = () => {
       <Box display="flex">
         <IconButton onClick={colorMode.toggelColorMode}>
           {theme.palette.mode === "dark" ? (
-            <DarkModeOutlinedIcon />
+              <DarkModeOutlinedIcon />
           ) : (
             <LightModeOutlinedIcon />
           )}
@@ -53,12 +56,12 @@ const Topbar = () => {
         </IconButton>
         {!user ? (
           // <IconButton onClick={() => navigate(ROUTES.LOGIN)}>
-            <IconButton onClick={() => navigate(ROUTES.SIGNUP)}>
+          <IconButton onClick={() => navigate(ROUTES.SIGNUP)}>
             <LockOpenOutlinedIcon />
           </IconButton>
         ) : (
           // <IconButton onClick={() => navigate(ROUTES.LOGIN)}>
-            <IconButton onClick={() => navigate(ROUTES.SIGNUP)}>
+          <IconButton onClick={() => navigate(ROUTES.SIGNUP)}>
             <PersonOutlinedIcon />
           </IconButton>
         )}

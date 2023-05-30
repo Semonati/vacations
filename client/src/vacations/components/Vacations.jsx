@@ -11,9 +11,11 @@ const Vacations = ({ vacations }) => {
           <Grid
             item
             key={vacation._id}
-            sx={{ backgroundColor: "red", m: "0 2% 2% 0"}}
+            sx={{ backgroundColor: "red", m: "0 2% 2% 0" }}
             xs={12}
             sm={6}
+            md={4}
+            lg={3}
           >
             <Vacation vacation={vacation} />
           </Grid>
