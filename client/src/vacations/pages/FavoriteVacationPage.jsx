@@ -1,15 +1,15 @@
 import React from "react";
 import HeaderPage from "../../components/HeaderPage";
-import PageBox from "../../components/PageBox";
+import { Box } from "@mui/material";
 
 const FavoriteVacationPage = () => {
   return (
-    <PageBox>
+    <Box m="2%">
       <HeaderPage
         title="favorite vacation"
         subtitle="all my favorite vacation"
       />
-    </PageBox>
+    </Box>
   );
 };
 

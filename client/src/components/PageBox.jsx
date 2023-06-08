@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 
 const PageBox = ({ children }) => {
   return (
-    <Box minHeight="120vh" ml="2%">
+    <Box minHeight="105vh" ml="2%">
       <Box>{children}</Box>
     </Box>
   );

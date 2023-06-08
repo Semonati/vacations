@@ -2,7 +2,6 @@ import { Box, IconButton } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { useNavigate } from "react-router-dom";
 import HeaderPage from "../../components/HeaderPage";
-import PageBox from "../../components/PageBox";
 import { useEffect } from "react";
 import useVacations from "../hooks/useVacations";
 import VacationStatus from "../components/VacationStatus";
@@ -17,29 +16,27 @@ const AllVacationsPage = () => {
 
   useEffect(() => {
     handleGetVacations();
-  }, []);
+  }, [handleGetVacations]);
 
   return (
-    <PageBox>
-      <Box>
-        <HeaderPage
-          title="View All Stories And Vacations"
-          subtitle="Here you can see everyone's memories from tripe or vacation "
-        />
-        <VacationStatus
-          isPending={isPending}
-          error={error}
-          vacations={vacations}
-        />
-        {user && (
-          <Box width="95%" display="flex" justifyContent="flex-end">
-            <IconButton onClick={() => navigate(ROUTES.CREAT_VACTION)}>
-              <AddCircleOutlineOutlinedIcon />
-            </IconButton>
-          </Box>
-        )}
-      </Box>
-    </PageBox>
+    <Box m="2%">
+      <HeaderPage
+        title="View All Stories And Vacations"
+        subtitle="Here you can see everyone's memories from tripe or vacation "
+      />
+      <VacationStatus
+        isPending={isPending}
+        error={error}
+        vacations={vacations}
+      />
+      {user && (
+        <Box width="95%" display="flex" justifyContent="flex-end">
+          <IconButton onClick={() => navigate(ROUTES.CREAT_VACTION)}>
+            <AddCircleOutlineOutlinedIcon />
+          </IconButton>
+        </Box>
+      )}
+    </Box>
   );
 };
 

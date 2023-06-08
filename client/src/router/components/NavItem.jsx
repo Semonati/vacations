@@ -1,27 +1,23 @@
 import React from "react";
 import { string } from "prop-types";
-import { Typography, useTheme } from "@mui/material";
-import { MenuItem } from "react-pro-sidebar";
-import { Link } from "react-router-dom";
-import { tokens } from "../../theme";
+import { Box, Button, Typography } from "@mui/material";
 import firstLetterUpperCase from "../../utils/firstLetterUpperCase";
+import NavBarLink from "./NavBarLink";
 
-const NavItem = ({ to, label, icon, selected, setSelected }) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+const NavItem = ({ to, label, icon, setSelected, isCollapsed }) => {
   label = firstLetterUpperCase(label);
   return (
-    <MenuItem
-      active={selected === label}
-      style={{
-        // color: colors.gray[100],
-      }}
-      onClick={() => setSelected(label)}
-      icon={icon}
-    >
-      <Typography color={colors.blue[400]}>{label}</Typography>
-      <Link to={to} />
-    </MenuItem>
+    <NavBarLink to={to}>
+      <Button color="secondary" onClick={() => setSelected(label)}>
+        {!isCollapsed && (
+          <Box display="flex" justifyContent="space-between">
+            <Box mr="1vw">{icon}</Box>
+            <Typography>{label}</Typography>
+          </Box>
+        )}
+        {isCollapsed && <Box> {icon}</Box>}
+      </Button>
+    </NavBarLink>
   );
 };
 

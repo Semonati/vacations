@@ -8,15 +8,7 @@ const Vacations = ({ vacations }) => {
     <Box>
       <Grid container columns={13}>
         {vacations.map((vacation) => (
-          <Grid
-            item
-            key={vacation._id}
-            sx={{ backgroundColor: "red", m: "0 2% 2% 0" }}
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3}
-          >
+          <Grid item key={vacation._id} sx={{ m: "0 2% 15% 0" }} xs={12}>
             <Vacation vacation={vacation} />
           </Grid>
         ))}

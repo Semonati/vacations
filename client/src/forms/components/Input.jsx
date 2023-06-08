@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 
 const Input = ({
   variant,
+  color,
   type,
   name,
   data,
@@ -26,6 +27,7 @@ const Input = ({
         name={name}
         value={data[name] ? data[name] : ""}
         required={required}
+        color={color}
         helperText={error}
         error={Boolean(error)}
         onChange={onChange}

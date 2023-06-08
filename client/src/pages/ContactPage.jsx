@@ -1,12 +1,12 @@
 import React from "react";
 import HeaderPage from "../components/HeaderPage";
-import PageBox from "../components/PageBox";
+import { Box } from "@mui/material";
 
 const ContactPage = (props) => {
   return (
-    <PageBox>
+    <Box m="2%">
       <HeaderPage title="Contact us" subtitle="Here you can contact us" />
-    </PageBox>
+    </Box>
   );
 };
 

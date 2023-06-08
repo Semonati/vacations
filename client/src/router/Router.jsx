@@ -12,20 +12,22 @@ import AboutPage from "../pages/AboutPage";
 import LoginPage from "../users/pages/LoginPage";
 import AllVacationsPage from "../vacations/pages/AllVacationsPage";
 import SigninPage from "../users/pages/SigninPage";
+import VacationsDetailsPage from "../vacations/pages/VacationsDetailsPage";
 
 const Router = () => {
   return (
     <Routes>
-      <Route path={ROUTES.ROOT} element={<AllVacationsPage />}></Route>
-      <Route path={ROUTES.ABOUT} element={<AboutPage />}></Route>
-      <Route path={ROUTES.My_VACTIONS} element={<MyVacationsPage />}></Route>
-      <Route path={ROUTES.CONTACTS} element={<ContactPage />}></Route>
-      <Route path={ROUTES.CREAT_VACTION} element={<CreateVacationPage />}></Route>
-      <Route path={ROUTES.FAV_VACTION} element={<FavoriteVacationPage />}></Route>
-      <Route path={ROUTES.EDIT_VACTION} element={<EditVacationPage />}></Route>
-      <Route path={ROUTES.LOGIN} element={<LoginPage />}></Route>
-      <Route path={ROUTES.SIGNUP} element={<SigninPage />}></Route>
-      <Route path="*" element={<ErrorPage />}></Route>
+      <Route path={ROUTES.ROOT} element={<AllVacationsPage />} />
+      <Route path={ROUTES.ABOUT} element={<AboutPage />}/>
+      <Route path={ROUTES.My_VACATIONS} element={<MyVacationsPage />}/>
+      <Route path={ROUTES.CONTACTS} element={<ContactPage />}/>
+      <Route path={ROUTES.CREAT_VACATION} element={<CreateVacationPage />}/>
+      <Route path={ROUTES.FAV_VACATION} element={<FavoriteVacationPage />}/>
+      <Route path={ROUTES.EDIT_VACATION} element={<EditVacationPage />}/>
+      <Route path={ROUTES.VACATION_DETAILS} element={<VacationsDetailsPage />}/>
+      <Route path={ROUTES.LOGIN} element={<LoginPage />}/>
+      <Route path={ROUTES.SIGNUP} element={<SigninPage />}/>
+      <Route path="*" element={<ErrorPage />}/>
     </Routes>
   );
 };

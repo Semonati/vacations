@@ -1,20 +1,35 @@
-import { useState } from "react";
 import { string } from "prop-types";
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { tokens } from "../../../theme";
+import ROUTES from "../../../router/routesModel";
 
 const VacationBody = ({ description }) => {
-  const [showMore, setShowMore] = useState(false);
+  const navigate = useNavigate();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
     <Box>
-      <Typography variant="h5" color={colors.gray[200]}>
-        {showMore ? description : `${description.substring(0, 200)}`}
+      <Typography
+        variant="h5"
+        color={colors.red[500]}
+        fontWeight="bold"
+        align="center"
+      >
+        {`${description.substring(0, 200)}`}
       </Typography>
-      <Button onClick={() => setShowMore(!showMore)} sx={{color:colors.green[500]}}>
-        {showMore ? "show Less" : "show More"}
-      </Button>
+      <Box display="flex" justifyContent="space-around">
+        <Button
+          onClick={() => navigate(`${ROUTES.VACATION_DETAILS}`)}
+          sx={{ color: colors.green[500] }}
+        >
+          <Typography>tell me mor</Typography>
+        </Button>
+        <IconButton>
+          <FavoriteBorderOutlinedIcon />
+        </IconButton>
+      </Box>
     </Box>
   );
 };

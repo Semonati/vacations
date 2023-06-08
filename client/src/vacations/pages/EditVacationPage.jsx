@@ -1,15 +1,16 @@
 import React from 'react'
 import HeaderPage from '../../components/HeaderPage';
-import PageBox from '../../components/PageBox';
+import { Box } from '@mui/material';
+
 
 const EditVacationPage = () => {
   return (
-    <PageBox m="2%">
+    <Box m="2%">
       <HeaderPage
         title="Edit Vacation"
         subtitle="update your story"
       />
-    </PageBox>
+    </Box>
   );
 }
 

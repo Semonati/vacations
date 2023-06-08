@@ -1,9 +1,9 @@
 import { useState, useCallback, useMemo, useEffect } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
-// import { useSnackBar } from "../../providers/SnackBarProvifer";
+import { useSnackBar } from "../../providers/SnackBarProvifer";
 import ROUTES from "../../router/routesModel";
-// import normalizevacation from "../helpers/normalization/normalizevacation";
+import normalizevacation from "../helpers/normalization/normalization";
 import {
   getVacations,
   changeLikeStatus,
@@ -19,7 +19,7 @@ const useVacations = () => {
   const [vacation, setVacation] = useState();
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
-  // const snack = useSnackBar();
+  const snack = useSnackBar();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [filtered, setFiltered] = useState(null);
@@ -88,9 +88,9 @@ const useVacations = () => {
   const handleCreateVacation = useCallback(async (vacationFromClient) => {
     try {
       setIsPending(true);
-      // const normelizedvacation = normalizevacation(vacationFromClient);
-      // const vacation = await createVacation(normelizedvacation);
-      // snack("success", "A new business cars was seccessfully created");
+      const normelizedvacation = normalizevacation(vacationFromClient);
+      const vacation = await createVacation(normelizedvacation);
+      snack("success", "A new business cars was seccessfully created");
       return requestStatus(false, null, vacation);
     } catch (error) {
       return requestStatus(false, error, null);

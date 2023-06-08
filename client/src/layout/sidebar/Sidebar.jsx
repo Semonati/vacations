@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import "react-pro-sidebar/dist/css/styles.css";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -19,97 +26,68 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Home");
   const user = {
-    name: "Nati Semo",
+    firstName: "Nati",
+    lastName: "Semo",
   };
-
   return (
     <Box
-      position="sticky"
       sx={{
+        "& .pro-sidebar": {
+          width: "10vw",
+        },
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
-        },
-        "& .pro-icon-wrapper": {
-          backgroundColor: "transparent !important",
-        },
-        "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
-        },
-        "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
-        },
-        "& .pro-menu-item.active": {
-          color: "#6870fa !important",
+          padding: "0.5% 2% 0 1% !important",
+          position: "fixed",
         },
       }}
     >
       <ProSidebar collapsed={isCollapsed}>
-        <Menu iconShape="square" breakpoint="md">
-          {/* LOGO AND MENU ICON */}
-          <MenuItem
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
-            style={{
-              margin: "0 0 5% 0",
-              color: colors.gray[100],
-            }}
+        <Box mb="10%">
+          <Box
+            display="flex"
+            justifyContent="space-evenly"
+            alignItems="center"
+            m="4% 0 0 0"
           >
             {!isCollapsed && (
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                m="0 0 10% 8%"
-              >
-                <Typography variant="h3" color={colors.gray[100]}>
-                  VACTIONS
-                </Typography>
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                  <MenuOutlinedIcon />
-                </IconButton>
-              </Box>
+              <Typography variant="h3" color={colors.gray[100]}>
+                VACTIONS
+              </Typography>
             )}
-            {!isCollapsed && (
-              <Box>
-                <Box textAlign="center">
-                  <Typography
-                    variant="h2"
-                    color={colors.gray[100]}
-                    fontWeight="bold"
-                  >
-                    {user.name}
-                  </Typography>
-                </Box>
-              </Box>
-            )}
-          </MenuItem>
+            <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+              <MenuOutlinedIcon />
+            </IconButton>
+          </Box>
+        </Box>
 
-          {/* CATEGORIES */}
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+        <Box>
+          <Box display="flex" flexDirection="column">
             <NavItem
               to={ROUTES.ROOT}
               label="Home"
               icon={<HomeOutlinedIcon />}
-              selected={selected}
+              isCollapsed={isCollapsed}
               setSelected={setSelected}
             />
             <NavItem
-              to={ROUTES.My_VACTIONS}
+              to={ROUTES.My_VACATIONS}
               label="My Vacations"
               icon={<FlightOutlinedIcon />}
-              selected={selected}
+              isCollapsed={isCollapsed}
               setSelected={setSelected}
             />
             <NavItem
-              to={ROUTES.FAV_VACTION}
+              to={ROUTES.FAV_VACATION}
               label="Favorites Vacations"
               icon={<FavoriteBorderOutlinedIcon />}
-              selected={selected}
+              isCollapsed={isCollapsed}
               setSelected={setSelected}
             />
+          </Box>
 
-            <Divider />
-
+          <Divider />
+          <Box display="flex" flexDirection="column">
             <Box>
               {!isCollapsed ? (
                 <Typography
@@ -139,18 +117,18 @@ const Sidebar = () => {
               to={ROUTES.ABOUT}
               label="About Us"
               icon={<InfoOutlinedIcon />}
-              selected={selected}
+              isCollapsed={isCollapsed}
               setSelected={setSelected}
             />
             <NavItem
               to={ROUTES.CONTACTS}
               label="Contact Us"
               icon={<EmailOutlinedIcon />}
-              selected={selected}
+              isCollapsed={isCollapsed}
               setSelected={setSelected}
             />
           </Box>
-        </Menu>
+        </Box>
       </ProSidebar>
     </Box>
   );

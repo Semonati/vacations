@@ -1,12 +1,10 @@
 import React from "react";
 import { object } from "prop-types";
-import { Box } from "@mui/material";
+import { CardMedia } from "@mui/material";
 
 const VacationImage = ({ image }) => {
   return (
-    <Box>
-      <img alt={image.alt} src={image.url} width="200%" />
-    </Box>
+    <CardMedia component="img" height="300" image={image.url} alt={image.alt} />
   );
 };
 

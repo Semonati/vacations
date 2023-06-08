@@ -2,10 +2,10 @@ import { useState, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import useAxios from "../../hooks/useAxios";
-// import { useSnackBar } from "../../providers/SnackBarProvifer";
+import { useSnackBar } from "../../providers/SnackBarProvifer";
 import ROUTES from "../../router/routesModel";
 import normalizeUser from "../helpers/normalization/normalizeUser";
-import { useUser } from "../providers/UserProviders";
+import { useUser } from "../../providers/UserProviders";
 import {
   getUser,
   removeToker,
@@ -25,7 +25,7 @@ const useUsers = () => {
   const [users, setUsers] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
-  // const snack = useSnackBar();
+  const snack = useSnackBar();
 
   const navigate = useNavigate();
   const { user, setUser, setToken } = useUser();
@@ -102,7 +102,7 @@ const useUsers = () => {
     try {
       setIsPending(true);
       const user = await editUser(userId, userFromClient);
-      // snack("success", "The user was seccessfully updated");
+      snack("success", "The user was seccessfully updated");
       navigate(ROUTES.ROOT);
       return requestStatus(false, null, null, user);
     } catch (error) {
@@ -125,7 +125,7 @@ const useUsers = () => {
     async (user_id) => {
       try {
         await businessUser(user_id);
-        // snack("success", "The user has been successfully changed");
+        snack("success", "The user has been successfully changed");
         requestStatus(false, null, users, user);
       } catch (error) {
         requestStatus(false, error, null);

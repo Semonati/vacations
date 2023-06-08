@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Card } from "@mui/material";
 import { object } from "prop-types";
 import VacationImage from "./VacationImage";
 import VacationHead from "./VacationHead";
@@ -7,15 +7,15 @@ import VacationBody from "./VacationBody";
 
 const Vacation = ({ vacation }) => {
   return (
-    <Box display="flex" justifyContent="space-between" height="50vh">
-      <Box>
-        <VacationImage image={vacation.image} />
-      </Box>
+    <Card sx={{ minWidth: 450 }}>
       <Box>
         <VacationHead title={vacation.title} subtitle={vacation.subtitle} />{" "}
         <VacationBody description={vacation.description} />
       </Box>
-    </Box>
+      <Box>
+        <VacationImage image={vacation.image} />
+      </Box>
+    </Card>
   );
 };
 

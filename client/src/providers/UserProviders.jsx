@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useMemo } from "react";
 import { node } from "prop-types";
-import { getToken, getUser } from "../services/localStorageService";
+import { getToken, getUser } from "../users/services/localStorageService";
 
 const UserContext = React.createContext(null);
 
@@ -13,7 +13,6 @@ export const UserProvider = ({ children }) => {
       const userFromLocalStorage = getUser();
       setUser(userFromLocalStorage);
     }
-    
   }, [user]);
 
   const value = useMemo(() => {

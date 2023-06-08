@@ -1,11 +1,16 @@
-import React from 'react'
-import PageBox from '../../components/PageBox'
-
+import React from "react";
+import HeaderPage from "../../components/HeaderPage";
+import { Box } from "@mui/material";
 
 const CreateVacationPage = () => {
   return (
-    <PageBox>CreateVacationPage</PageBox>
-  )
-}
+    <Box m="2%">
+      <HeaderPage
+        title="Create Vacation"
+        subtitle="create your story vacation"
+      />
+    </Box>
+  );
+};
 
-export default CreateVacationPage
+export default CreateVacationPage;
