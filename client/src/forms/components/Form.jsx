@@ -4,11 +4,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import FormButton from "./FormButton";
 import { useNavigate } from "react-router-dom";
-import Typography from "@mui/material/Typography";
 import LoopIcon from "@mui/icons-material/Loop";
 
 const Form = ({
-  title,
   onSubmit,
   onReset,
   onChange,
@@ -29,9 +27,6 @@ const Form = ({
       autoComplete="off"
       noValidate
     >
-      <Typography align="center" variant="h5" component="h1" mb={2}>
-        {title.toUpperCase()}
-      </Typography>
 
       <Grid container spacing={spacing}>
         {children}

@@ -108,7 +108,6 @@ const deleteUser = async (_id) => {
           password: 0,
         }
       );
-      // console.log(user);
       if (!user)
         throw new Error(
           "Could not delete this user because a user with this ID cannot found in the database"

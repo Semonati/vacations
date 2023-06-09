@@ -12,8 +12,7 @@ const Input = ({
   data,
   label,
   required,
-  error,
-  changeBizNumber,
+  error,  
   onChange,
   ...rest
 }) => {
@@ -30,8 +29,7 @@ const Input = ({
         color={color}
         helperText={error}
         error={Boolean(error)}
-        onChange={onChange}
-        disabled={changeBizNumber}
+        onChange={onChange}        
         fullWidth
         autoComplete="off"
       />
@@ -50,7 +48,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
-  required: true,
+  required: false,
   type: "text",
   variant: "outlined",
 };

@@ -3,7 +3,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import { useSnackBar } from "../../providers/SnackBarProvifer";
 import ROUTES from "../../router/routesModel";
-import normalizevacation from "../helpers/normalization/normalization";
+import normalizevacation from "../helpers/normalization/normalizaeVacation";
 import {
   getVacations,
   changeLikeStatus,
@@ -30,17 +30,16 @@ const useVacations = () => {
     setQuery(searchParams.get("q") ?? "");
   }, [searchParams]);
 
-  useEffect(() => {
-    if (vacation) {
-      setFiltered(
-        vacation.filter(
-          (vacation) =>
-            vacation.title.includes(query) ||
-            String(vacation.bizNumber).includes(query)
-        )
-      );
-    }
-  }, [vacation, query]);
+  // useEffect(() => {
+  //   if (vacation) {
+  //     setFiltered(
+  //       vacation.filter(
+  //         (vacation) =>
+  //           vacation.title.includes(query)
+  //       )
+  //     );
+  //   }
+  // }, [vacation, query]);
 
   useAxios();
 
@@ -90,7 +89,7 @@ const useVacations = () => {
       setIsPending(true);
       const normelizedvacation = normalizevacation(vacationFromClient);
       const vacation = await createVacation(normelizedvacation);
-      snack("success", "A new business cars was seccessfully created");
+      snack("success", "A new vacation was seccessfully created");
       return requestStatus(false, null, vacation);
     } catch (error) {
       return requestStatus(false, error, null);
@@ -103,8 +102,8 @@ const useVacations = () => {
         setIsPending(true);
         const vacation = await editVacation(vacationId, vacationFromClient);
         requestStatus(false, null, null, vacation);
-        // snack("success", "The vacation was seccessfully updated");
-        navigate(ROUTES.vacationS);
+        snack("success", "The vacation was seccessfully updated");
+        navigate(ROUTES.ROOT);
       } catch (error) {
         requestStatus(false, error, null);
       }
@@ -116,8 +115,8 @@ const useVacations = () => {
     try {
       setIsPending(true);
       const vacationDeleted = await deleteVacation(vacationId);
-      // snack("success", "The vacation was seccessfully deleted");
-      navigate(ROUTES.My_VACTIONS);
+      snack("success", "The vacation story was seccessfully deleted");
+      navigate(ROUTES.My_VACATIONS);
       return requestStatus(false, null, vacationDeleted);
     } catch (error) {
       return requestStatus(false, error, null);
@@ -138,10 +137,11 @@ const useVacations = () => {
     try {
       setIsPending(true);
       const vacations = await getVacations();
-      const favvacations = vacations.filter(
+      const favVacations = vacations.filter(
         (vacation) => !!vacation.likes.find((id) => id === userId)
       );
-      return requestStatus(false, null, favvacations);
+      // console.log(favVacations);
+      return requestStatus(false, null, favVacations);
     } catch (error) {
       requestStatus(false, error, null);
     }
@@ -149,7 +149,6 @@ const useVacations = () => {
 
   const value = useMemo(() => {
     return { isPending, vacation, vacations, error, filtered };
-    // return { isPending, vacation, vacations, filtered };
   }, [isPending, vacation, vacations, error, filtered]);
 
   return {

@@ -21,7 +21,7 @@ const Address = new mongoose.Schema({
     minLength: 1,
   },
   zip: {
-    type: String,
+    type: Number,
     trim: true,
     default: 0,
   },

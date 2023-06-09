@@ -18,16 +18,26 @@ const Router = () => {
   return (
     <Routes>
       <Route path={ROUTES.ROOT} element={<AllVacationsPage />} />
-      <Route path={ROUTES.ABOUT} element={<AboutPage />}/>
-      <Route path={ROUTES.My_VACATIONS} element={<MyVacationsPage />}/>
-      <Route path={ROUTES.CONTACTS} element={<ContactPage />}/>
-      <Route path={ROUTES.CREAT_VACATION} element={<CreateVacationPage />}/>
-      <Route path={ROUTES.FAV_VACATION} element={<FavoriteVacationPage />}/>
-      <Route path={ROUTES.EDIT_VACATION} element={<EditVacationPage />}/>
-      <Route path={ROUTES.VACATION_DETAILS} element={<VacationsDetailsPage />}/>
-      <Route path={ROUTES.LOGIN} element={<LoginPage />}/>
-      <Route path={ROUTES.SIGNUP} element={<SigninPage />}/>
-      <Route path="*" element={<ErrorPage />}/>
+      <Route path={ROUTES.ABOUT} element={<AboutPage />} />
+      <Route path={ROUTES.My_VACATIONS} element={<MyVacationsPage />} />
+      <Route path={ROUTES.CONTACTS} element={<ContactPage />} />
+      <Route path={ROUTES.CREAT_VACATION} element={<CreateVacationPage />} />
+      <Route
+        // path={`${ROUTES.FAV_VACATION}/:userId`}
+        path={`${ROUTES.FAV_VACATION}`}
+        element={<FavoriteVacationPage />}
+      />
+      <Route
+        path={`${ROUTES.EDIT_VACATION}/:vacationId`}
+        element={<EditVacationPage />}
+      />
+      <Route
+        path={ROUTES.VACATION_DETAILS}
+        element={<VacationsDetailsPage />}
+      />
+      <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+      <Route path={ROUTES.SIGNUP} element={<SigninPage />} />
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 };

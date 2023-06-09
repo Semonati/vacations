@@ -12,7 +12,7 @@ import useForm from "../../forms/hooks/useForm";
 import ROUTES from "../../router/routesModel";
 import initialLoginForm from "../helpers/initialForms/initialLoginForm";
 import useUsers from "../hooks/useUsers";
-import loginSchema from "../models/joi-schema.js/loginSchema";
+import loginSchema from "../models/joi-schema/loginSchema";
 import HeaderPage from "../../components/HeaderPage";
 import { useUser } from "../../providers/UserProviders";
 

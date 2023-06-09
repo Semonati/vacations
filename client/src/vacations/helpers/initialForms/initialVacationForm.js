@@ -1,9 +1,8 @@
-const initialStoreForm = {
+const initialVacationForm = {
   title: "",
   subtitle: "",
   description: "",
   phone: "",
-  email: "",
   webUrl: "",
   imageUrl: "",
   imageAlt: "",
@@ -15,4 +14,4 @@ const initialStoreForm = {
   zip: 0,
 };
 
-export default initialStoreForm;
+export default initialVacationForm;

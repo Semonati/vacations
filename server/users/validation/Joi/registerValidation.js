@@ -1,20 +1,14 @@
 const Joi = require("joi");
 
 const registerValidation = (user) => {
-  const fullName = Joi.string().min(2).max(256).required();
-  const altAndMiddelName = Joi.string().min(2).max(256).allow("");
+  const name = Joi.string().min(2).max(256).required();
 
   const schema = Joi.object({
     name: Joi.object()
       .keys({
-        first: fullName,
-        middle: altAndMiddelName,
-        last: fullName,
+        first: name,
+        last: name,
       })
-      .required(),
-    phone: Joi.string()
-      .ruleset.regex(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/)
-      .rule({ message: 'user "phone" mast be a valid phone number' })
       .required(),
     email: Joi.string()
       .ruleset.pattern(
@@ -31,7 +25,6 @@ const registerValidation = (user) => {
           'user "password" must be at least nine characters long and contain an uppercase letter, a lowercase letter, a number and one of the following characters !@#$%^&*-',
       })
       .required(),
-    isAdmin: Joi.boolean().allow(""),
   });
   return schema.validate(user);
 };

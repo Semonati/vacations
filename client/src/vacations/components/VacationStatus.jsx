@@ -1,11 +1,13 @@
 import React from "react";
-import { arrayOf, bool, string, func } from "prop-types";
+import { arrayOf, bool, string } from "prop-types";
+import { Typography } from "@mui/material";
 import ErrorAlert from "../../components/ErrorAlert";
 import Spinner from "../../components/Spinner";
-import { Typography } from "@mui/material";
 import Vacations from "./Vacations";
+import vacationType from "../models/types/vacationType";
 
-const VacationStatus = ({ isPending, error, vacations}) => {
+const VacationStatus = ({ isPending, error, vacations, onLike }) => {
+
   if (isPending) return <Spinner />;
   if (error) return <ErrorAlert errorMessage={error} />;
 
@@ -16,13 +18,15 @@ const VacationStatus = ({ isPending, error, vacations}) => {
       </Typography>
     );
   if (vacations && !!vacations.length)
-    return <Vacations vacations={vacations}  />;;
+    return (
+      <Vacations vacations={vacations} onLike={onLike} />
+    );
 };
 
 VacationStatus.propTypes = {
   isPending: bool.isRequired,
   error: string,
-//   vacations: arrayOf(cardType),
+  vacations: arrayOf(vacationType),
 };
 
 export default VacationStatus;

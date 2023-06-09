@@ -10,6 +10,10 @@ const vacationSchema = new mongoose.Schema({
     ...DEFAULT_VALIDATION,
     maxLength: 1024,
   },
+  phone: {
+    type: String,
+    match: RegExp(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/),
+  },
   web: URL,
   image: Image,
   address: Address,

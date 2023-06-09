@@ -21,8 +21,8 @@ const getAllVacations = async () => {
 const getThisVacation = async (user_id) => {
   if (DB === "MONGODB") {
     try {
-      const vacation = await Vacation.findById({ _id: user_id }, { _id: 0, __v: 0 });
-      return Promise.resolve(vacation);
+      const vacations = await Vacation.find({ user_id });
+      return Promise.resolve(vacations);
     } catch (error) {
       error.status = 404;
       handleBadRequest("MONGODB", error);
@@ -32,11 +32,27 @@ const getThisVacation = async (user_id) => {
   return Promise.resolve([]);
 };
 
-const createVacation = async (normalizedVacation, user) => {
+const getVacation = async (vacationId) => {
+  if (DB === "MONGODB") {
+    try {
+      const vacation = await Vacation.findById(
+        { _id: vacationId },
+        { __v: 0, password: 0, isAdmin: 0 }
+      );
+      if (!vacation)
+        throw new Error("Could not find this vacation in the database");
+      return Promise.resolve(vacation);
+    } catch (error) {
+      handleBadRequest("Mongoose", error);
+      return Promise.reject(error);
+    }
+  }
+};
+
+const createVacation = async (normalizedVacation) => {
   if (DB === "MONGODB") {
     try {
       let vacation = new Vacation(normalizedVacation);
-      vacation.user_id = user._id;
       vacation = await vacation.save();
       return Promise.resolve(vacation);
     } catch (error) {
@@ -65,26 +81,30 @@ const likeVacation = async (vacationId, userId) => {
     try {
       let vacation = await Vacation.findById(vacationId);
       if (!vacation)
-        throw new Error("A vacation with this ID cannot be found in the database");
-
-      const vacationLikes = vacation.likes.find((id) => id === userId);
-      if (!vacationLikes) {
-        vacation.likes.push(userId);
-        vacation = await vacation.save();
-        return Promise.resolve(vacation);
-      }
+        throw new Error(
+          "A vacation with this ID cannot be found in the database"
+        );
+        const vacationLikes = vacation.likes.find((id) => id === userId);
+        if (!vacationLikes) {
+          vacation.likes.push(userId);
+          vacation = await vacation.save();
+          return Promise.resolve(vacation);
+        }
+        // console.log(vacation.likes);
+        console.log(vacationLikes);
 
       const vacationFiltered = vacation.likes.filter((id) => id !== userId);
       vacation.likes = vacationFiltered;
       vacation = await vacation.save();
+
       return Promise.resolve(vacation);
     } catch (error) {
       error.status = 400;
       handleBadRequest("MONGODB", error);
-      return Promise.reject(error);
+      return Promise.resolve(error);
     }
   }
-  return Promise.resolve("vacation update!");
+  return Promise.resolve("vacation like update!");
 };
 
 const deleteVacation = async (vacationId, user) => {
@@ -109,6 +129,7 @@ const deleteVacation = async (vacationId, user) => {
 
 exports.getAllVacations = getAllVacations;
 exports.getThisVacation = getThisVacation;
+exports.getVacation = getVacation;
 exports.createVacation = createVacation;
 exports.editVacation = editVacation;
 exports.likeVacation = likeVacation;

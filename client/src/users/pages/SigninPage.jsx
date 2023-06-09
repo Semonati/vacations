@@ -7,7 +7,7 @@ import { getColor } from "../../utils/colorModeInLocalStorage";
 import ROUTES from "../../router/routesModel";
 import useForm from "../../forms/hooks/useForm";
 import useUsers from "../hooks/useUsers";
-import signupSchema from "../models/joi-schema.js/signupSchema";
+import signupSchema from "../models/joi-schema/signupSchema";
 import initialSignupForm from "../helpers/initialForms/initialSignupForm";
 import Form from "../../forms/components/Form";
 import Input from "../../forms/components/Input";
@@ -52,23 +52,25 @@ const SigninPage = () => {
         >
           <Input
             label="first Name"
-            name="firstName"
+            name="first"
             type="text"
-            error={value.errors.firstName}
+            error={value.errors.first}
             onChange={rest.handleChange}
             data={value.data}
             variant="filled"
             color={colorMode === "dark" ? "secondary" : undefined}
+            sm={6}
           />
           <Input
             label="last Name"
-            name="lastName"
+            name="last"
             type="text"
-            error={value.errors.lastName}
+            error={value.errors.last}
             onChange={rest.handleChange}
             data={value.data}
             variant="filled"
             color={colorMode === "dark" ? "secondary" : undefined}
+            sm={6}
           />
           <Input
             label="email"

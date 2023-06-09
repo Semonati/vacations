@@ -19,16 +19,15 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { tokens } from "../../theme";
 import NavItem from "../../router/components/NavItem";
 import ROUTES from "../../router/routesModel";
+import { useUser } from "../../providers/UserProviders";
 
 const Sidebar = () => {
+  const { user } = useUser();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Home");
-  const user = {
-    firstName: "Nati",
-    lastName: "Semo",
-  };
+
   return (
     <Box
       sx={{
@@ -70,20 +69,24 @@ const Sidebar = () => {
               isCollapsed={isCollapsed}
               setSelected={setSelected}
             />
-            <NavItem
-              to={ROUTES.My_VACATIONS}
-              label="My Vacations"
-              icon={<FlightOutlinedIcon />}
-              isCollapsed={isCollapsed}
-              setSelected={setSelected}
-            />
-            <NavItem
-              to={ROUTES.FAV_VACATION}
-              label="Favorites Vacations"
-              icon={<FavoriteBorderOutlinedIcon />}
-              isCollapsed={isCollapsed}
-              setSelected={setSelected}
-            />
+            {user && (
+              <Box display="flex" flexDirection="column">
+                <NavItem
+                  to={ROUTES.My_VACATIONS}
+                  label="My Vacations"
+                  icon={<FlightOutlinedIcon />}
+                  isCollapsed={isCollapsed}
+                  setSelected={setSelected}
+                />
+                <NavItem
+                  to={ROUTES.FAV_VACATION}
+                  label="Favorites Vacations"
+                  icon={<FavoriteBorderOutlinedIcon />}
+                  isCollapsed={isCollapsed}
+                  setSelected={setSelected}
+                />
+              </Box>
+            )}
           </Box>
 
           <Divider />

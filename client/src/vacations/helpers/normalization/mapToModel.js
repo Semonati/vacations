@@ -1,10 +1,9 @@
-const mapStoreToModel = (store) => {
+const mapVacationToModel = (store) => {
   return {
     title: store.title,
     subtitle: store.subtitle,
     description: store.description,
     phone: store.phone,
-    email: store.email,
     webUrl: store.web,
     imageUrl: store.image.url,
     imageAlt: store.image.alt,
@@ -17,4 +16,4 @@ const mapStoreToModel = (store) => {
   };
 };
 
-export default mapStoreToModel;
+export default mapVacationToModel;
