@@ -3,7 +3,6 @@ import { useUser } from '../providers/UserProviders'
 
 const EditUser = () => {
     const user = useUser()
-    console.log(user);
   return (
     <div>EditUser</div>
   )

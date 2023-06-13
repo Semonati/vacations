@@ -9,7 +9,7 @@ export const MenuProvider = ({ children }) => {
   const theme = useTheme()
   const screenSize = useMediaQuery(theme.breakpoints.up("md"));
   const [isOpen, setIsOpen] = useState();
-  const [anchorEl, setAnchorEl] = useState();
+  const [anchorEl, setAnchorEl] = useState(null);
   const anchorRef = useRef();
 
   useEffect(() => {
@@ -18,7 +18,6 @@ export const MenuProvider = ({ children }) => {
   useEffect(() => {
     setIsOpen(false);
   }, [screenSize]);
-  // console.log(isOpen);
 
   return (
     <>

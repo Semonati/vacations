@@ -8,14 +8,14 @@ const FavoriteVacationPage = () => {
   const { value, ...rest } = useVacations();
   const { isPending, error, vacations } = value;
   const { handleGetFavVacations } = rest;
-
+// console.log(value);
   useEffect(() => {
     handleGetFavVacations();
   }, []);
 
-    const changeLikeStatus = useCallback(async () => {
-      await handleGetFavVacations();
-    }, []);
+  const changeLikeStatus = useCallback(async () => {
+    await handleGetFavVacations();
+  }, []);
 
   return (
     <Box m="2%">

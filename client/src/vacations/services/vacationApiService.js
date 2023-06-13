@@ -55,7 +55,6 @@ export const editVacation = async (vacationId, normelizedVacation) => {
 export const changeLikeStatus = async (vacationId) => {
   try {
     const { data } = await axios.patch(`${apiUrl}/vacations/${vacationId}`);
-    console.log(data.likes);
     return data;
   } catch (error) {
     return Promise.reject(error.message);

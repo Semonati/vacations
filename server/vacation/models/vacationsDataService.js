@@ -84,19 +84,16 @@ const likeVacation = async (vacationId, userId) => {
         throw new Error(
           "A vacation with this ID cannot be found in the database"
         );
-        const vacationLikes = vacation.likes.find((id) => id === userId);
-        if (!vacationLikes) {
-          vacation.likes.push(userId);
-          vacation = await vacation.save();
-          return Promise.resolve(vacation);
-        }
-        // console.log(vacation.likes);
-        console.log(vacationLikes);
+      const vacationLikes = vacation.likes.find((id) => id === userId);
+      if (!vacationLikes) {
+        vacation.likes.push(userId);
+        vacation = await vacation.save();
+        return Promise.resolve(vacation);
+      }
 
       const vacationFiltered = vacation.likes.filter((id) => id !== userId);
       vacation.likes = vacationFiltered;
       vacation = await vacation.save();
-
       return Promise.resolve(vacation);
     } catch (error) {
       error.status = 400;

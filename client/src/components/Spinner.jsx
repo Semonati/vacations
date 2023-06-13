@@ -29,7 +29,7 @@ Spinner.propTypes = {
 
 Spinner.defaultProps = {
   color: "primary",
-  size: 40,
+  size: 60,
   height: "50vh",
 };
 

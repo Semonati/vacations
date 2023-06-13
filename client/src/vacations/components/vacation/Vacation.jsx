@@ -4,19 +4,19 @@ import { object } from "prop-types";
 import VacationImage from "./VacationImage";
 import VacationHead from "./VacationHead";
 import VacationBody from "./VacationBody";
+import { getColor } from "../../../utils/colorModeInLocalStorage";
 
-const Vacation = ({ vacation, onLike }) => {
+const Vacation = ({ vacation }) => {
+  const colorMode = getColor();
   
+  const cardColor =()=>{
+    return colorMode === "dark" ? "#2a2d64" : "#e0e0e0";
+  }
   return (
-    <Card sx={{ minWidth: 450 }}>
+    <Card sx={{ backgroundColor: cardColor }}>
       <Box>
         <VacationHead title={vacation.title} subtitle={vacation.subtitle} />
-        <VacationBody
-          description={vacation.description}
-          vacationId={vacation._id}
-          onLike={onLike}
-          vacationLikes={vacation.likes}
-        />
+        <VacationBody vacation={vacation} />
       </Box>
       <Box>
         <VacationImage image={vacation.image} />

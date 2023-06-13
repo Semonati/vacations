@@ -1,8 +1,7 @@
-import { string } from "prop-types";
+import { object } from "prop-types";
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import EditOffOutlinedIcon from "@mui/icons-material/EditOffOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ROUTES from "../../../router/routesModel";
@@ -12,7 +11,7 @@ import { useState } from "react";
 import useVacations from "../../hooks/useVacations";
 import VacationDeleteAlert from "./VacationDeleteAlert";
 
-const VacationBody = ({ description, vacationId, vacationLikes }) => {
+const VacationBody = ({ vacation }) => {
   const { user } = useUser();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -20,13 +19,13 @@ const VacationBody = ({ description, vacationId, vacationLikes }) => {
   const [isDialogOpen, setDialog] = useState(false);
   const [isLike, setLike] = useState(() => {
     if (!user) return false;
-    return !!vacationLikes.find((id) => id === user._id);
+    return !!vacation.likes.find((id) => id === user._id);
   });
   const { handleLikeVacation, handleGetFavVacations } = useVacations();
 
   const handleLike = async () => {
     setLike((prev) => !prev);
-    await handleLikeVacation(vacationId);
+    await handleLikeVacation(vacation._id);
     handleGetFavVacations();
   };
   const handleDialog = (trim) => {
@@ -42,11 +41,11 @@ const VacationBody = ({ description, vacationId, vacationLikes }) => {
         fontWeight="bold"
         align="center"
       >
-        {`${description.substring(0, 200)}`}
+        {`${vacation.description.substring(0, 50)}...`}
       </Typography>
       <Box display="flex" justifyContent="space-around">
         <Button
-          onClick={() => navigate(`${ROUTES.VACATION_DETAILS}`)}
+          onClick={() => navigate(`${ROUTES.VACATION_DETAILS}/${vacation._id}`)}
           sx={{ color: colors.green[500] }}
         >
           <Typography>tell me mor</Typography>
@@ -60,37 +59,37 @@ const VacationBody = ({ description, vacationId, vacationLikes }) => {
             </IconButton>
           )}
 
-          {user ? (
+          {user && user._id === vacation.user_id && (
             <IconButton
-              onClick={() => navigate(`${ROUTES.EDIT_VACATION}/${vacationId}`)}
+              onClick={() =>
+                navigate(`${ROUTES.EDIT_VACATION}/${vacation._id}`)
+              }
             >
               <EditOutlinedIcon />
             </IconButton>
-          ) : (
-            <IconButton disabled={true}>
-              <EditOffOutlinedIcon />
-            </IconButton>
           )}
 
-          <IconButton
-            aria-label="delete card"
-            onClick={() => handleDialog("open")}
-          >
-            <DeleteOutlineOutlinedIcon />
-          </IconButton>
+          {user && (user.isAdmin || user._id === vacation.user_id) && (
+            <IconButton
+              aria-label="delete card"
+              onClick={() => handleDialog("open")}
+            >
+              <DeleteOutlineOutlinedIcon />
+            </IconButton>
+          )}
         </Box>
       </Box>
       <VacationDeleteAlert
         isDialogOpen={isDialogOpen}
         onChangeDialog={handleDialog}
-        vacationId={vacationId}
+        vacationId={vacation._id}
       />
     </Box>
   );
 };
 
 VacationBody.propTypes = {
-  description: string.isRequired,
+  vacation: object.isRequired,
 };
 
 export default VacationBody;

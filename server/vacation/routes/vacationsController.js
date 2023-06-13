@@ -17,6 +17,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const vacations = await getAllVacations();
+    
     res.send(vacations);
   } catch (error) {
     return handleError(res, error.status || 500, error.message);

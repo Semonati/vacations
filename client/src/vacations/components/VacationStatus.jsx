@@ -7,8 +7,7 @@ import Vacations from "./Vacations";
 import vacationType from "../models/types/vacationType";
 
 const VacationStatus = ({ isPending, error, vacations, onLike }) => {
-
-  if (isPending) return <Spinner />;
+  if (isPending) return <Spinner color="secondary" />;
   if (error) return <ErrorAlert errorMessage={error} />;
 
   if (vacations && !vacations.length)
@@ -18,9 +17,7 @@ const VacationStatus = ({ isPending, error, vacations, onLike }) => {
       </Typography>
     );
   if (vacations && !!vacations.length)
-    return (
-      <Vacations vacations={vacations} onLike={onLike} />
-    );
+    return <Vacations vacations={vacations} onLike={onLike} />;
 };
 
 VacationStatus.propTypes = {

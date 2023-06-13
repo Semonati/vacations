@@ -32,7 +32,7 @@ const Router = () => {
         element={<EditVacationPage />}
       />
       <Route
-        path={ROUTES.VACATION_DETAILS}
+        path={`${ROUTES.VACATION_DETAILS}/:vacationId`}
         element={<VacationsDetailsPage />}
       />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />

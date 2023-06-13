@@ -13,6 +13,7 @@ import {
   getMyVacations,
   getVacation,
 } from "../services/vacationApiService";
+import { useUser } from "../../providers/UserProviders";
 
 const useVacations = () => {
   const [vacations, setVacations] = useState();
@@ -24,7 +25,7 @@ const useVacations = () => {
   const [query, setQuery] = useState("");
   const [filtered, setFiltered] = useState(null);
   const [searchParams] = useSearchParams();
-  const { userId } = useParams();
+  const { user } = useUser();
 
   useEffect(() => {
     setQuery(searchParams.get("q") ?? "");
@@ -138,9 +139,9 @@ const useVacations = () => {
       setIsPending(true);
       const vacations = await getVacations();
       const favVacations = vacations.filter(
-        (vacation) => !!vacation.likes.find((id) => id === userId)
+        (vacation) => !!vacation.likes.find((id) => id === user._id)
       );
-      // console.log(favVacations);
+      
       return requestStatus(false, null, favVacations);
     } catch (error) {
       requestStatus(false, error, null);

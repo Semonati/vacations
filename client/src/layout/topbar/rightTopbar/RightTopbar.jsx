@@ -8,11 +8,13 @@ import { ColorModeContext } from "../../../theme";
 import { useUser } from "../../../providers/UserProviders";
 import NotLogged from "./NotLogged";
 import Logged from "./Logged";
+import { setColorModeInLocalStorage } from "../../../utils/colorModeInLocalStorage";
 
 const RightTopbar = () => {
   const { user } = useUser();
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
+  setColorModeInLocalStorage(theme.palette.mode);
 
   return (
     <Box display="flex">

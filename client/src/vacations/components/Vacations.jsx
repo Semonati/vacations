@@ -8,7 +8,7 @@ const Vacations = ({ vacations, onLike }) => {
     <Box>
       <Grid container columns={13}>
         {vacations.map((vacation) => (
-          <Grid item key={vacation._id} sx={{ m: "0 2% 10% 0" }} xs={12}>
+          <Grid item key={vacation._id} sx={{ m: "0 2% 10% 0" }} xs={12} md={6}>
             <Vacation vacation={vacation} onLike={onLike} />
           </Grid>
         ))}

@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { ProSidebar } from "react-pro-sidebar";
 import {
   Box,
-  Button,
   Divider,
   IconButton,
   Typography,

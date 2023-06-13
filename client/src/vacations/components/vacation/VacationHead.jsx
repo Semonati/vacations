@@ -2,6 +2,7 @@ import React from "react";
 import { string } from "prop-types";
 import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../../theme";
+import firstLetterUpperCase from "../../../utils/firstLetterUpperCase";
 
 const VacationHead = ({ title, subtitle }) => {
   const theme = useTheme();
@@ -9,8 +10,12 @@ const VacationHead = ({ title, subtitle }) => {
   return (
     <Box>
       <Box>
-        <Typography variant="h2" color={colors.blue[300]} align="center">
-          {title}
+        <Typography
+          variant="h2"
+          color={colors.blue[300]}
+          align="center"
+        >
+          {firstLetterUpperCase(title)}
         </Typography>
       </Box>
       <Box>
