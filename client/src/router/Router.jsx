@@ -10,21 +10,22 @@ import EditVacationPage from "../vacations/pages/EditVacationPage";
 import MyVacationsPage from "../vacations/pages/MyVacationsPage";
 import AboutPage from "../pages/AboutPage";
 import LoginPage from "../users/pages/LoginPage";
-import AllVacationsPage from "../vacations/pages/AllVacationsPage";
+import VacationsPage from "../vacations/pages/VacationsPage";
 import SigninPage from "../users/pages/SigninPage";
 import VacationsDetailsPage from "../vacations/pages/VacationsDetailsPage";
+import EditUserPage from "../users/pages/EditUserPage";
+import ProfilePage from "../users/pages/ProfilePage";
 
 const Router = () => {
   return (
     <Routes>
-      <Route path={ROUTES.ROOT} element={<AllVacationsPage />} />
+      <Route path={ROUTES.ROOT} element={<VacationsPage />} />
       <Route path={ROUTES.ABOUT} element={<AboutPage />} />
       <Route path={ROUTES.My_VACATIONS} element={<MyVacationsPage />} />
       <Route path={ROUTES.CONTACTS} element={<ContactPage />} />
       <Route path={ROUTES.CREAT_VACATION} element={<CreateVacationPage />} />
       <Route
-        // path={`${ROUTES.FAV_VACATION}/:userId`}
-        path={`${ROUTES.FAV_VACATION}`}
+        path={`${ROUTES.FAV_VACATION}/:userId`}
         element={<FavoriteVacationPage />}
       />
       <Route
@@ -37,6 +38,11 @@ const Router = () => {
       />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.SIGNUP} element={<SigninPage />} />
+      <Route path={`${ROUTES.EDIT_USER}/:userId`} element={<EditUserPage />} />
+      <Route
+        path={`${ROUTES.USER_PROFILE}/:userId`}
+        element={<ProfilePage />}
+      />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

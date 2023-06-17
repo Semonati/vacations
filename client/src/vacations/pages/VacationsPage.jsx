@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import useVacations from "../hooks/useVacations";
 import VacationStatus from "../components/VacationStatus";
 
-const AllVacationsPage = () => {
+const VacationsPage = () => {
   const { value, handleGetVacations } = useVacations();
-  const { isPending, vacations, error } = value;
+  const { isPending, error, filtered } = value;
 
   useEffect(() => {
     handleGetVacations();
@@ -21,10 +21,10 @@ const AllVacationsPage = () => {
       <VacationStatus
         isPending={isPending}
         error={error}
-        vacations={vacations}
+        vacations={filtered}
       />
     </Box>
   );
 };
 
-export default AllVacationsPage;
+export default VacationsPage;

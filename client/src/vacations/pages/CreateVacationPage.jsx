@@ -19,9 +19,11 @@ const CreateVacationPage = () => {
     createVacationSchema,
     handleCreateVacation
   );
-
-  if(!user) return <Navigate replace to={ROUTES.ROOT} />;
   
+  value.data.creatorName = `${user.name.first} ${user.name.last}`;
+
+  if (!user) return <Navigate replace to={ROUTES.ROOT} />;
+
   return (
     <Box m="2%">
       <HeaderPage

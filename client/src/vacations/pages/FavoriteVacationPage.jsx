@@ -5,10 +5,9 @@ import useVacations from "../hooks/useVacations";
 import VacationStatus from "../components/VacationStatus";
 
 const FavoriteVacationPage = () => {
-  const { value, ...rest } = useVacations();
+  const { value, handleGetFavVacations } = useVacations();
   const { isPending, error, vacations } = value;
-  const { handleGetFavVacations } = rest;
-// console.log(value);
+
   useEffect(() => {
     handleGetFavVacations();
   }, []);

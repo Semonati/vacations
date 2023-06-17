@@ -3,6 +3,7 @@ const normalizaeVacation = (vacation) => {
     title: vacation.title,
     subtitle: vacation.subtitle,
     description: vacation.description,
+    creatorName: vacation.creatorName,
     phone: vacation.phone,
     web: vacation.webUrl,
     image: {

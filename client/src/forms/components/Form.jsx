@@ -26,6 +26,7 @@ const Form = ({
       onSubmit={onSubmit}
       autoComplete="off"
       noValidate
+      mb="2%"
     >
 
       <Grid container spacing={spacing}>

@@ -1,6 +1,6 @@
 const User = require("./mongoDB/Users");
 
-const { handleBadRequest, handleError } = require("../../utils/handleErrors");
+const { handleBadRequest } = require("../../utils/handleErrors");
 const { generateAuthToken } = require("../../auth/Providers/jwt");
 const { comparePassword } = require("../helpers/bcrypt");
 
@@ -23,10 +23,7 @@ const getAllUsers = async () => {
 const getUser = async (_id) => {
   if (DB === "MONGODB") {
     try {
-      const user = await User.findById(
-        { _id },
-        { __v: 0, password: 0 }
-      );
+      const user = await User.findById({ _id }, { __v: 0, password: 0 });
       if (!user) throw new Error("There is no user with this ID");
       return Promise.resolve(user);
     } catch (error) {
@@ -41,7 +38,7 @@ const getUser = async (_id) => {
 const registerUser = async (userData) => {
   if (DB === "MONGODB") {
     try {
-      const { email, password } = userData;
+      const { email } = userData;
       let user = await User.findOne({ email });
       if (user) throw new Error("User already registered");
       user = new User(userData);
@@ -62,10 +59,14 @@ const loginUser = async (userData) => {
       const { email, password } = userData;
       let user = await User.findOne({ email });
       if (!user)
-        throw new Error("Authentication Error: Invalid email or password");
+        return Promise.reject(
+          "Authentication Error: Invalid email or password"
+        );
       const validPassword = comparePassword(password, user.password);
       if (!validPassword) {
-        throw new Error("Authentication Error: Invalid email or password");
+        return Promise.reject(
+          "Authentication Error: Invalid email or password"
+        );
       }
       const token = generateAuthToken(user);
       return Promise.resolve(token);

@@ -20,6 +20,10 @@ const handleJoiError = async (error) => {
   return handleBadRequest("Joi", joiError);
 };
 
+const wrongInfo = (message = "") => {
+  return Promise.reject(message);
+};
+
 exports.handleError = handleError;
 exports.handleBadRequest = handleBadRequest;
 exports.handleJoiError = handleJoiError;

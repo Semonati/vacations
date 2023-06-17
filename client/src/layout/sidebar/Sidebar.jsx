@@ -27,6 +27,7 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Home");
 
+  
   return (
     <Box
       sx={{
@@ -41,7 +42,7 @@ const Sidebar = () => {
       }}
     >
       <ProSidebar collapsed={isCollapsed}>
-        <Box mb="10%">
+        <Box mb="5%">
           <Box
             display="flex"
             justifyContent="space-evenly"
@@ -53,10 +54,20 @@ const Sidebar = () => {
                 VACTIONS
               </Typography>
             )}
+
             <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
               <MenuOutlinedIcon />
             </IconButton>
           </Box>
+          {/* {!isCollapsed && user && (
+            <Box>
+              <Box textAlign="center" mt="5%">
+                <Typography variant="h2" color={colors.gray[100]}>
+                  {`${user && user.firstName} ${user && user.lastName}`}
+                </Typography>
+              </Box>
+            </Box>
+          )} */}
         </Box>
 
         <Box>
@@ -78,7 +89,7 @@ const Sidebar = () => {
                   setSelected={setSelected}
                 />
                 <NavItem
-                  to={ROUTES.FAV_VACATION}
+                  to={`${ROUTES.FAV_VACATION}/${user._id}`}
                   label="Favorites Vacations"
                   icon={<FavoriteBorderOutlinedIcon />}
                   isCollapsed={isCollapsed}

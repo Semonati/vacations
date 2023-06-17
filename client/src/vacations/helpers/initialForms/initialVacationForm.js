@@ -3,6 +3,7 @@ const initialVacationForm = {
   subtitle: "",
   description: "",
   phone: "",
+  creatorName: "",
   webUrl: "",
   imageUrl: "",
   imageAlt: "",

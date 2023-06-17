@@ -10,17 +10,13 @@ const VacationHead = ({ title, subtitle }) => {
   return (
     <Box>
       <Box>
-        <Typography
-          variant="h2"
-          color={colors.blue[300]}
-          align="center"
-        >
+        <Typography variant="h2" color={colors.blue[300]} align="center">
           {firstLetterUpperCase(title)}
         </Typography>
       </Box>
       <Box>
         <Typography variant="h3" color={colors.blue[300]} align="center">
-          {subtitle}
+          {firstLetterUpperCase(subtitle)}
         </Typography>
       </Box>
     </Box>

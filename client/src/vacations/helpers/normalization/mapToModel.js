@@ -1,18 +1,19 @@
-const mapVacationToModel = (store) => {
+const mapVacationToModel = (vacation) => {
   return {
-    title: store.title,
-    subtitle: store.subtitle,
-    description: store.description,
-    phone: store.phone,
-    webUrl: store.web,
-    imageUrl: store.image.url,
-    imageAlt: store.image.alt,
-    state: store.address.state,
-    country: store.address.country,
-    city: store.address.city,
-    street: store.address.street,
-    houseNumber: store.address.houseNumber,
-    zip: store.address.zip,
+    title: vacation.title,
+    subtitle: vacation.subtitle,
+    description: vacation.description,
+    creatorName:vacation.creatorName,
+    phone: vacation.phone,
+    webUrl: vacation.web,
+    imageUrl: vacation.image.url,
+    imageAlt: vacation.image.alt,
+    state: vacation.address.state,
+    country: vacation.address.country,
+    city: vacation.address.city,
+    street: vacation.address.street,
+    houseNumber: vacation.address.houseNumber,
+    zip: vacation.address.zip,
   };
 };
 

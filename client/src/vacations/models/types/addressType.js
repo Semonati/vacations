@@ -5,7 +5,7 @@ const addressType = shape({
   country: string.isRequired,
   city: string.isRequired,
   street: string.isRequired,
-  houseNumber: number.isRequired,
+  houseNumber: number,
   zip: number,
 });
 

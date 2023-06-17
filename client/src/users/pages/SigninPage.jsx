@@ -1,20 +1,18 @@
 import React from "react";
-import HeaderPage from "../../components/HeaderPage";
 import { Avatar, Box, Container } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Navigate } from "react-router-dom";
-import { getColor } from "../../utils/colorModeInLocalStorage";
+
+import HeaderPage from "../../components/HeaderPage";
 import ROUTES from "../../router/routesModel";
 import useForm from "../../forms/hooks/useForm";
 import useUsers from "../hooks/useUsers";
 import signupSchema from "../models/joi-schema/signupSchema";
 import initialSignupForm from "../helpers/initialForms/initialSignupForm";
-import Form from "../../forms/components/Form";
-import Input from "../../forms/components/Input";
 import { useUser } from "../../providers/UserProviders";
+import UserForm from "../components/UserForm";
 
 const SigninPage = () => {
-  const colorMode = getColor();
   const { user } = useUser();
   const { handleSignup } = useUsers();
   const { value, ...rest } = useForm(
@@ -43,56 +41,16 @@ const SigninPage = () => {
           flexDirection: "column",
         }}
       >
-        <Form
-          onSubmit={rest.onSubmit}
+        <UserForm
+          title="signup"
+          onSubmit={() => rest.onSubmit("signup")}
           onReset={rest.handleReset}
           onChange={rest.validateForm}
-          styles={{ maxWidth: "450px" }}
-          to={ROUTES.ROOT}
-        >
-          <Input
-            label="first Name"
-            name="first"
-            type="text"
-            error={value.errors.first}
-            onChange={rest.handleChange}
-            data={value.data}
-            variant="filled"
-            color={colorMode === "dark" ? "secondary" : undefined}
-            sm={6}
-          />
-          <Input
-            label="last Name"
-            name="last"
-            type="text"
-            error={value.errors.last}
-            onChange={rest.handleChange}
-            data={value.data}
-            variant="filled"
-            color={colorMode === "dark" ? "secondary" : undefined}
-            sm={6}
-          />
-          <Input
-            label="email"
-            name="email"
-            type="email"
-            error={value.errors.email}
-            onChange={rest.handleChange}
-            data={value.data}
-            variant="filled"
-            color={colorMode === "dark" ? "secondary" : undefined}
-          />
-          <Input
-            label="password"
-            name="password"
-            type="password"
-            error={value.errors.password}
-            onChange={rest.handleChange}
-            data={value.data}
-            variant="filled"
-            color={colorMode === "dark" ? "secondary" : undefined}
-          />
-        </Form>
+          errors={value.errors}
+          data={value.data}
+          onInputChange={rest.handleChange}
+          setData={rest.setData}
+        />        
       </Container>
     </Box>
   );

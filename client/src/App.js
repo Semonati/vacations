@@ -5,6 +5,7 @@ import Router from "./router/Router";
 import { UserProvider } from "./providers/UserProviders";
 import Layout from "./layout/Layout";
 import { SnackBarProvider } from "./providers/SnackBarProvifer";
+import AutoLogout from "./users/pages/AutoLogout ";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -14,12 +15,14 @@ function App() {
         <SnackBarProvider>
           <UserProvider>
             <CssBaseline />
-            <div className="app">
-              <Sidebar />
-              <Layout>
-                <Router />
-              </Layout>
-            </div>
+            <AutoLogout>
+              <div className="app">
+                <Sidebar />
+                <Layout>
+                  <Router />
+                </Layout>
+              </div>
+            </AutoLogout>
           </UserProvider>
         </SnackBarProvider>
       </ThemeProvider>

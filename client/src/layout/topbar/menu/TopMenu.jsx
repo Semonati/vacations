@@ -9,7 +9,7 @@ const TopMenu = ({ isOpen, anchorEl, onClose }) => {
   const navigate = useNavigate();
   const { user } = useUser();
   const { handleLogout } = useUsers();
-
+  
   const onLogout = () => {
     handleLogout();
     onClose();
@@ -18,8 +18,16 @@ const TopMenu = ({ isOpen, anchorEl, onClose }) => {
     navigate(ROUTES.LOGIN);
     onClose();
   };
+  const onEditUser = () => {
+    navigate(`${ROUTES.EDIT_USER}/${user._id}`);
+    onClose();
+  };
   const onSignup = () => {
     navigate(ROUTES.SIGNUP);
+    onClose();
+  };
+  const onProfile = () => {
+    navigate(`${ROUTES.USER_PROFILE}/${user._id}`);
     onClose();
   };
 
@@ -40,15 +48,13 @@ const TopMenu = ({ isOpen, anchorEl, onClose }) => {
           <>
             <MenuItem onClick={onLogin}>Login</MenuItem>
 
-            <MenuItem
-              onClick={onSignup}
-            >
-              Signup
-            </MenuItem>
+            <MenuItem onClick={onSignup}>Signup</MenuItem>
           </>
         )}
         {user && (
           <>
+            <MenuItem onClick={onEditUser}>Edit account</MenuItem>
+            <MenuItem onClick={onProfile}>User profile</MenuItem>
             <MenuItem onClick={onLogout}>Logout</MenuItem>
           </>
         )}

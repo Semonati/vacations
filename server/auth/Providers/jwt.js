@@ -1,20 +1,22 @@
 const jwt = require("jsonwebtoken");
 
 const config = require("config");
-const { handleBadRequest } = require("../../utils/handleErrors");
 
 const key = config.get("JWT_KEY");
 
-const generateAuthToken = (store) => {
-  const { _id, isAdmin } = store;
-  const token = jwt.sign({ _id, isAdmin }, key);
+const generateAuthToken = (vacation) => {
+  const { _id, isAdmin, name, email, createdAt, aboutMe, phone,address } = vacation;
+  const token = jwt.sign(
+    { _id, isAdmin, name, email, createdAt, aboutMe, phone,address },
+    key
+  );
   return token;
 };
 
 const verifyToken = (tokenFromClient) => {
   try {
-    const storeData = jwt.verify(tokenFromClient, key);
-    return storeData;
+    const vacationData = jwt.verify(tokenFromClient, key);
+    return vacationData;
   } catch (error) {
     return null;
   }

@@ -5,6 +5,7 @@ const { DEFAULT_VALIDATION, URL } = require("../../helpers/mongooseValidators");
 
 const vacationSchema = new mongoose.Schema({
   title: DEFAULT_VALIDATION,
+  creatorName: DEFAULT_VALIDATION,
   subtitle: DEFAULT_VALIDATION,
   description: {
     ...DEFAULT_VALIDATION,

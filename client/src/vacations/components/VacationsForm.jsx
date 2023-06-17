@@ -28,6 +28,7 @@ const VacationsForm = ({
         variant="filled"
         sm={6}
         required={true}
+        multiline={false}
       />
       <Input
         name="subtitle"
@@ -38,6 +39,7 @@ const VacationsForm = ({
         variant="filled"
         sm={6}
         required={true}
+        multiline={false}
       />
       <Input
         name="phone"
@@ -47,6 +49,7 @@ const VacationsForm = ({
         onChange={onInputChange}
         data={data}
         variant="filled"
+        multiline={false}
         sm={6}
       />
       <Input
@@ -56,6 +59,7 @@ const VacationsForm = ({
         onChange={onInputChange}
         data={data}
         variant="filled"
+        multiline={false}
         sm={6}
         required={false}
       />
@@ -66,6 +70,7 @@ const VacationsForm = ({
         onChange={onInputChange}
         data={data}
         variant="filled"
+        multiline={false}
         sm={6}
       />
       <Input
@@ -75,6 +80,7 @@ const VacationsForm = ({
         onChange={onInputChange}
         data={data}
         variant="filled"
+        multiline={false}
         sm={6}
       />
       <Input
@@ -84,6 +90,7 @@ const VacationsForm = ({
         onChange={onInputChange}
         data={data}
         variant="filled"
+        multiline={false}
         sm={6}
       />
       <Input
@@ -94,6 +101,8 @@ const VacationsForm = ({
         data={data}
         variant="filled"
         sm={6}
+        required={true}
+        multiline={false}
       />
       <Input
         name="city"
@@ -103,6 +112,8 @@ const VacationsForm = ({
         data={data}
         variant="filled"
         sm={6}
+        required={true}
+        multiline={false}
       />
       <Input
         name="street"
@@ -112,15 +123,18 @@ const VacationsForm = ({
         data={data}
         variant="filled"
         sm={6}
+        required={true}
+        multiline={false}
       />
       <Input
         name="houseNumber"
-        label="houseNumber"
+        label="house Number"
         type="number"
         error={errors.houseNumber}
         onChange={onInputChange}
         data={data}
         variant="filled"
+        multiline={false}
         sm={6}
       />
       <Input
@@ -131,6 +145,7 @@ const VacationsForm = ({
         onChange={onInputChange}
         data={data}
         variant="filled"
+        multiline={false}
         sm={6}
       />
       <Input
@@ -141,6 +156,18 @@ const VacationsForm = ({
         data={data}
         variant="filled"
         required={true}
+        multiline={true}
+        rows={10}
+      />
+      <Input
+        name="creatorName"
+        label="creator Name"
+        error={errors.creatorName}
+        onChange={onInputChange}
+        data={data}
+        variant="filled"
+        disabled={true}
+        multiline={false}
       />
     </Form>
   );

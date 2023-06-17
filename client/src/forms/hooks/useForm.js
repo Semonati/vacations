@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { object, func } from "prop-types";
 import Joi from "joi";
 import ROUTES from "../../router/routesModel";
+import { useSnackBar } from "../../providers/SnackBarProvifer";
 
 const useForm = (initialForm, schema, handleSubmit) => {
   const [data, setData] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+    const snack = useSnackBar();
 
   const handleReset = useCallback(() => {
     setData(initialForm);
@@ -49,8 +51,12 @@ const useForm = (initialForm, schema, handleSubmit) => {
     return null;
   }, [schema, data]);
 
-  const onSubmit = useCallback(() => {
+  const onSubmit = useCallback((action) => {
+if (action !== "login")
+  if (data.password !== data.confirmPassword)
+    return snack("error", "The password arenot match");
     handleSubmit(data);
+    snack("success", "The user has successfully registered");
     navigate(ROUTES.ROOT);
   }, [handleSubmit, data]);
 

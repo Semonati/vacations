@@ -40,8 +40,8 @@ router.get("/", auth, async (req, res) => {
 router.get("/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
-    const { isAdmin } = req.user;
-    if (!isAdmin)
+    const { isAdmin, _id } = req.user;
+    if (!isAdmin && id !== _id)
       return handleError(
         res,
         403,

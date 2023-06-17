@@ -1,26 +1,31 @@
-import { bool, func } from "prop-types";
+import { bool, func, string } from "prop-types";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import useVacations from "../../hooks/useVacations";
+import useVacations from "../hooks/useVacations";
 import { useNavigate } from "react-router-dom";
-import ROUTES from "../../../router/routesModel";
+import ROUTES from "../../router/routesModel";
 
-const VacationDeleteAlert = ({
+const PopupAlert = ({
   isDialogOpen,
   onChangeDialog,
   vacationId,
+  message,
+  user,
 }) => {
   const { handleDeleteVacation } = useVacations();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const onDelete =()=>{
-    handleDeleteVacation(vacationId);
-    navigate(ROUTES.ROOT)
-  }
+  const onAlert = () => {
+    if(user){
+      handleDeleteVacation(vacationId);
+      return navigate(ROUTES.ROOT);
+    }
+    navigate(`${ROUTES.LOGIN}`);
+  };
   return (
     <Dialog
       open={isDialogOpen}
@@ -30,34 +35,30 @@ const VacationDeleteAlert = ({
       maxWidth="xs"
     >
       <DialogTitle id="alert-dialog-title">
-        {"Are you sure you want to delete this vacation?"}
+        {user && "Are you sure you want to delete this vacation?"}
+        {!user && "You're not login yet."}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          This operation will completely delete the vacation story and all its
-          data from the database and it will not be possible to retrieve the
-          story afterwards
+          {message}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={onChangeDialog} color="error">
           cancel
         </Button>
-        <Button
-          onClick={onDelete}
-          autoFocus
-          color="info"
-        >
-          Delete vacation
+        <Button onClick={onAlert} autoFocus color="info">
+          {user ? "Delete vacation" : "login"}
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-VacationDeleteAlert.propTypes = {
+PopupAlert.propTypes = {
   isDialogOpen: bool.isRequired,
   onChangeDialog: func.isRequired,
+  message: string.isRequired,
 };
 
-export default VacationDeleteAlert;
+export default PopupAlert;

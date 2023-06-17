@@ -3,11 +3,12 @@ const Joi = require("joi");
 const validateVacationWithJoi = (vacation) => {
   const urlRegex =
     /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
-  const titleAndSub = Joi.string().min(2).max(256).required();
+  const titleAndAddress = Joi.string().min(2).max(256).required();
 
   const schema = Joi.object({
-    title: titleAndSub,
-    subtitle: titleAndSub,
+    title: titleAndAddress,
+    creatorName: Joi.string(),
+    subtitle: titleAndAddress,
     description: Joi.string().min(2).max(1024).required(),
     phone: Joi.string()
       .ruleset.regex(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/)
@@ -27,9 +28,9 @@ const validateVacationWithJoi = (vacation) => {
     }),
     address: Joi.object().keys({
       state: Joi.string().allow("").min(2),
-      country: Joi.string().allow(""),
-      city: Joi.string().allow(""),
-      street: Joi.string().allow(""),
+      country: titleAndAddress,
+      city: titleAndAddress,
+      street: titleAndAddress,
       houseNumber: Joi.number().allow(""),
       zip: Joi.number().allow(""),
     }),

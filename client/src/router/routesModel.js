@@ -9,6 +9,8 @@ const ROUTES = {
   CONTACTS: "/contact-us",
   LOGIN: "/login",
   SIGNUP: "/signup",
+  EDIT_USER: "/edit-user",
+  USER_PROFILE: "/user-profile",
 };
 
 export default ROUTES;

@@ -13,7 +13,6 @@ import {
   getMyVacations,
   getVacation,
 } from "../services/vacationApiService";
-import { useUser } from "../../providers/UserProviders";
 
 const useVacations = () => {
   const [vacations, setVacations] = useState();
@@ -24,23 +23,20 @@ const useVacations = () => {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [filtered, setFiltered] = useState(null);
-  const [searchParams] = useSearchParams();
-  const { user } = useUser();
+  const [isSearch] = useSearchParams();
+  const { userId } = useParams();
 
   useEffect(() => {
-    setQuery(searchParams.get("q") ?? "");
-  }, [searchParams]);
+    setQuery(isSearch.get("q") ?? "");
+  }, [isSearch]);
 
-  // useEffect(() => {
-  //   if (vacation) {
-  //     setFiltered(
-  //       vacation.filter(
-  //         (vacation) =>
-  //           vacation.title.includes(query)
-  //       )
-  //     );
-  //   }
-  // }, [vacation, query]);
+  useEffect(() => {
+    if (vacations) {
+      setFiltered(
+        vacations.filter((vacation) => vacation.title.includes(query))
+      );
+    }
+  }, [vacations, query]);
 
   useAxios();
 
@@ -139,9 +135,9 @@ const useVacations = () => {
       setIsPending(true);
       const vacations = await getVacations();
       const favVacations = vacations.filter(
-        (vacation) => !!vacation.likes.find((id) => id === user._id)
+        (vacation) => !!vacation.likes.find((id) => id === userId)
       );
-      
+
       return requestStatus(false, null, favVacations);
     } catch (error) {
       requestStatus(false, error, null);

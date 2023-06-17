@@ -6,6 +6,7 @@ const vacationType = shape({
   _id: string,
   title: string.isRequired,
   subtitle: string.isRequired,
+  creatorName: string.isRequired,
   description: string.isRequired,
   address: addressType.isRequired,
   image: imageType.isRequired,

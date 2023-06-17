@@ -7,7 +7,7 @@ const VacationImage = ({ image }) => {
     <Box xs={10}>
       <CardMedia
         component="img"
-        width="250"
+        height="300"
         image={image.url}
         alt={image.alt}
       />

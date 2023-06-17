@@ -12,8 +12,11 @@ const Input = ({
   data,
   label,
   required,
-  error,  
+  error,
   onChange,
+  rows,
+  disabled,
+  multiline,
   ...rest
 }) => {
   return (
@@ -29,9 +32,12 @@ const Input = ({
         color={color}
         helperText={error}
         error={Boolean(error)}
-        onChange={onChange}        
+        onChange={onChange}
         fullWidth
         autoComplete="off"
+        rows={rows}
+        multiline={multiline}
+        disabled={disabled}
       />
     </Grid>
   );
@@ -51,6 +57,8 @@ Input.defaultProps = {
   required: false,
   type: "text",
   variant: "outlined",
+  rows: 1,
+  disabled:false,
 };
 
 export default React.memo(Input);
