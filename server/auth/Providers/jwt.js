@@ -5,9 +5,10 @@ const config = require("config");
 const key = config.get("JWT_KEY");
 
 const generateAuthToken = (vacation) => {
-  const { _id, isAdmin, name, email, createdAt, aboutMe, phone,address } = vacation;
+  const { _id, isAdmin, name, email, createdAt, aboutMe, phone, address } =
+    vacation;
   const token = jwt.sign(
-    { _id, isAdmin, name, email, createdAt, aboutMe, phone,address },
+    { _id, isAdmin, name, email, createdAt, aboutMe, phone, address },
     key
   );
   return token;

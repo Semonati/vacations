@@ -15,6 +15,8 @@ import SigninPage from "../users/pages/SigninPage";
 import VacationsDetailsPage from "../vacations/pages/VacationsDetailsPage";
 import EditUserPage from "../users/pages/EditUserPage";
 import ProfilePage from "../users/pages/ProfilePage";
+import ForgotPasswordPage from "../users/pages/ForgotPasswordPage";
+import EnterNewPassword from "../users/pages/EnterNewPassword";
 
 const Router = () => {
   return (
@@ -38,6 +40,8 @@ const Router = () => {
       />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.SIGNUP} element={<SigninPage />} />
+      <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
+      <Route path={ROUTES.ENTER_NEW_PASSWORD} element={<EnterNewPassword />} />
       <Route path={`${ROUTES.EDIT_USER}/:userId`} element={<EditUserPage />} />
       <Route
         path={`${ROUTES.USER_PROFILE}/:userId`}

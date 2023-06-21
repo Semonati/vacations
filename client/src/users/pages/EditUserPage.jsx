@@ -15,6 +15,7 @@ import { useUser } from "../../providers/UserProviders";
 import HeaderPage from "../../components/HeaderPage";
 
 const EditUserPage = () => {
+  const navigate = useNavigate();
   const { userId } = useParams();
   const { user } = useUser();
   const { handleEditUser, handleGetUser, userValue } = useUsers();
@@ -24,10 +25,7 @@ const EditUserPage = () => {
       user_id: user._id,
     });
   });
-
-  // email: user.email,
-  // (initialSignupForm.email = user.email),
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     handleGetUser(userId).then((data) => {
@@ -44,9 +42,6 @@ const EditUserPage = () => {
           title="Edit account"
           subtitle="please edit account to create youe own vacation story"
         />
-        {/* <Avatar sx={{ bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar> */}
       </Box>
       <Container
         sx={{
@@ -60,7 +55,7 @@ const EditUserPage = () => {
           title="edit"
           onSubmit={() => rest.onSubmit("edit")}
           onReset={rest.handleReset}
-          onChange={rest.validateForm}
+          onChange={() => rest.validateForm("edit")}
           errors={value.errors}
           data={value.data}
           onInputChange={rest.handleChange}

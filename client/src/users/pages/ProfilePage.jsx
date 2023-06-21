@@ -20,7 +20,7 @@ const ProfilePage = () => {
   const { user } = useUser();
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-  // console.log(user);
+    
   return (
     <Box>
       <Box align="center">

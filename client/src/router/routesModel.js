@@ -11,6 +11,9 @@ const ROUTES = {
   SIGNUP: "/signup",
   EDIT_USER: "/edit-user",
   USER_PROFILE: "/user-profile",
+  FORGOT_PASSWORD: "/forgot-password",
+  RESET_PASSWORD: "/reset-password",
+  ENTER_NEW_PASSWORD: "/enter-new-password",
 };
 
 export default ROUTES;

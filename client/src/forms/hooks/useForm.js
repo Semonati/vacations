@@ -9,7 +9,7 @@ const useForm = (initialForm, schema, handleSubmit) => {
   const [data, setData] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-    const snack = useSnackBar();
+  const snack = useSnackBar();
 
   const handleReset = useCallback(() => {
     setData(initialForm);
@@ -44,19 +44,36 @@ const useForm = (initialForm, schema, handleSubmit) => {
     [validateProperty]
   );
 
-  const validateForm = useCallback(() => {
-    const schemaForValidate = Joi.object(schema);
-    const { error } = schemaForValidate.validate(data);
-    if (error) return error;
-    return null;
-  }, [schema, data]);
+  const validateForm = useCallback(
+    (action) => {
+      const schemaForValidate = Joi.object(schema);
+      const { error } = schemaForValidate.validate(data);
+      if (action === "edit") {
+        if (data.password || data.confirmPassword === undefined) return null;
+      }
+      if (error) return error;
+      return null;
+    },
+    [schema, data]
+  );
 
-  const onSubmit = useCallback((action) => {
-if (action !== "login")
-  if (data.password !== data.confirmPassword)
-    return snack("error", "The password arenot match");
+  const onSubmit = useCallback(
+    (action) => {
+      if (action !== "login")
+        if (data.password !== data.confirmPassword)
+          return snack("error", "The password you enter are not match");
+      handleSubmit(data);
+      snack("success", "The user has successfully registered");
+      navigate(ROUTES.ROOT);
+    },
+    [handleSubmit, data]
+  );
+
+  const onForgotPassword = useCallback(() => {
+    if (data.password !== data.confirmPassword)
+      return snack("error", "The password you enter are not match");
     handleSubmit(data);
-    snack("success", "The user has successfully registered");
+    snack("success", "The link to reset your pawwsord was send your email");
     navigate(ROUTES.ROOT);
   }, [handleSubmit, data]);
 
@@ -71,6 +88,7 @@ if (action !== "login")
     handleReset,
     validateForm,
     setData,
+    onForgotPassword,
   };
 };
 

@@ -3,6 +3,8 @@ import { func, object, string } from "prop-types";
 import Form from "../../forms/components/Form";
 import Input from "../../forms/components/Input";
 import ROUTES from "../../router/routesModel";
+import { Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const UserForm = ({
   title,
@@ -13,6 +15,7 @@ const UserForm = ({
   data,
   onInputChange,
 }) => {
+  const navigate = useNavigate();
   return (
     <Form
       onSubmit={onSubmit}
@@ -63,7 +66,7 @@ const UserForm = ({
       <Input
         label="email"
         name="email"
-        type="email"
+        type="email"        
         error={errors.email}
         onChange={onInputChange}
         data={data}
@@ -73,32 +76,36 @@ const UserForm = ({
         sm={title === "login" ? 12 : 6}
         disabled={title === "edit" && true}
       />
-      <Input
-        label="password"
-        name="password"
-        type="password"
-        error={errors.password}
-        onChange={onInputChange}
-        data={data}
-        variant="filled"
-        sm={title === "login" ? 12 : 6}
-        multiline={false}
-        required={true}
-      />
+      {title !== "edit" && (
+        <Input
+          label="password"
+          name="password"
+          type="password"
+          error={errors.password}
+          onChange={onInputChange}
+          data={data}
+          variant="filled"
+          sm={title === "login" ? 12 : 6}
+          multiline={false}
+          required={true}
+        />
+      )}
+      {title === "signup" && (
+        <Input
+          label="Confirm password"
+          name="confirmPassword"
+          type="password"
+          error={errors.confirmPassword}
+          onChange={onInputChange}
+          data={data}
+          variant="filled"
+          sm={title === "logig" ? 12 : 6}
+          multiline={false}
+          required={true}
+        />
+      )}
       {title !== "login" && (
         <>
-          <Input
-            label="Confirm password"
-            name="confirmPassword"
-            type="password"
-            error={errors.confirmPassword}
-            onChange={onInputChange}
-            data={data}
-            variant="filled"
-            sm={title === "logig" ? 12 : 6}
-            multiline={false}
-            required={true}
-          />
           <Input
             name="state"
             label="state"
@@ -176,6 +183,20 @@ const UserForm = ({
             rows={10}
           />
         </>
+      )}
+      {title === "login" && (
+        <Button
+          color="secondary"
+          onClick={() => navigate(ROUTES.FORGOT_PASSWORD)}
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "end",
+            alignItems: "center",
+          }}
+        >
+          <Typography>forgot password ?</Typography>
+        </Button>
       )}
     </Form>
   );

@@ -58,7 +58,7 @@ Input.defaultProps = {
   type: "text",
   variant: "outlined",
   rows: 1,
-  disabled:false,
+  disabled: false,
 };
 
 export default React.memo(Input);

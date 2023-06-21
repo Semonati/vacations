@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getPasswordToken } from "./localStorageService";
 
 const PORT = 8080;
 // const apiUrl = process.env.REACT_APP_API_URL || `http://localhost:9191`;
@@ -24,6 +25,25 @@ export const getUserFromDB = async (userId) => {
 export const login = async (user) => {
   try {
     const { data } = await axios.post(`${apiUrl}/users/login`, user);
+    return data;
+  } catch (error) {
+    return Promise.reject(error.message);
+  }
+};
+
+export const forgotPassword = async (user) => {
+  try {
+    const { data } = await axios.post(`${apiUrl}/users/forgot-password`, user);
+    return data;
+  } catch (error) {
+    return Promise.reject(error.message);
+  }
+};
+
+export const resetPassword = async (password) => {
+  try {
+    const token = getPasswordToken();
+    const { data } = await axios.post(`${token}`, password);
     return data;
   } catch (error) {
     return Promise.reject(error.message);

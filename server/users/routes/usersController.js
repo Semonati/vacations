@@ -11,11 +11,15 @@ const {
   loginUser,
   updateUser,
   deleteUser,
+  userForgotPassword,
+  userPasswordTokenVerifay,
+  resetUserPassword,
 } = require("../models/usersDataService");
 const {
   validateRegistration,
   validateLogin,
   validateUserUpdate,
+  validateForgotPassword,
 } = require("../validation/userValidationService");
 
 const app = express();
@@ -82,6 +86,36 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/forgot-password", async (req, res) => {
+  try {
+    let { email } = req.body;
+    const { error } = validateForgotPassword(email);
+    if (error)
+    return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
+    email = await userForgotPassword(email);
+    res.status(200).send(email);
+  } catch (error) {
+    return handleError(res, error.status || 500, error.message);
+  }
+});
+
+router.get("/reset-password/:id/:token", async (req, res) => {
+  try {
+    const { id, token } = req.params;
+    let user = await userPasswordTokenVerifay(id, token);
+    res.send(user);
+  } catch (error) {
+    return handleError(res, error.status || 500, error.message);
+  }
+});
+
+router.post("/reset-password/:id/:token", async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+  let user = await resetUserPassword(id, password);
+  res.send(user);
+});
+
 router.put("/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
@@ -97,7 +131,6 @@ router.put("/:id", auth, async (req, res) => {
         "Authorization Error: You must be user owner to update the data"
       );
     user = normalizeUser(user);
-    user.password = generateUserPassword(user.password);
     user = await updateUser(id, user);
     return res.status(204).send(user);
   } catch (error) {

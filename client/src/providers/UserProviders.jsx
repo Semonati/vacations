@@ -5,7 +5,7 @@ import { getToken, getUser } from "../users/services/localStorageService";
 const UserContext = React.createContext(null);
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
   const [token, setToken] = useState(getToken);
 
   useEffect(() => {
