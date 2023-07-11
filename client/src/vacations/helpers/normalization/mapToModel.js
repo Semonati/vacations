@@ -3,7 +3,7 @@ const mapVacationToModel = (vacation) => {
     title: vacation.title,
     subtitle: vacation.subtitle,
     description: vacation.description,
-    creatorName:vacation.creatorName,
+    creatorName: vacation.creatorName,
     phone: vacation.phone,
     webUrl: vacation.web,
     imageUrl: vacation.image.url,
@@ -14,6 +14,9 @@ const mapVacationToModel = (vacation) => {
     street: vacation.address.street,
     houseNumber: vacation.address.houseNumber,
     zip: vacation.address.zip,
+    price: vacation.price,
+    createdAt: vacation.createdAt,
+    updatedAt: vacation.updatedAt,
   };
 };
 

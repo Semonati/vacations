@@ -1,6 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { Navigate } from "react-router-dom";
+
 import HeaderPage from "../../components/HeaderPage";
 import { useUser } from "../../providers/UserProviders";
 import useForm from "../../forms/hooks/useForm";
@@ -22,7 +23,7 @@ const ForgotPasswordPage = () => {
   if (user) return <Navigate replace to={ROUTES.ROOT} />;
 
   return (
-    <Box width="100%" align="center">
+    <Box width="100%">
       <HeaderPage
         title="forgot you password ?"
         subtitle="please enter your email"

@@ -6,7 +6,7 @@ import VacationHead from "./VacationHead";
 import VacationBody from "./VacationBody";
 import { getColor } from "../../../utils/colorModeInLocalStorage";
 
-const Vacation = ({ vacation, onLike }) => {
+const Vacation = ({ vacation, onLike, socket }) => {
   const colorMode = getColor();
 
   const cardColor = () => {
@@ -16,7 +16,7 @@ const Vacation = ({ vacation, onLike }) => {
     <Card sx={{ backgroundColor: cardColor }}>
       <Box>
         <VacationHead title={vacation.title} subtitle={vacation.subtitle} />
-        <VacationBody vacation={vacation} onLike={onLike} />
+        <VacationBody vacation={vacation} onLike={onLike} socket={socket} />
       </Box>
       <Box>
         <VacationImage image={vacation.image} />

@@ -8,11 +8,11 @@ import normalizeUser from "../helpers/normalization/normalizeUser";
 import { useUser } from "../../providers/UserProviders";
 import {
   getUser,
-  removeToker,
+  removeToken,
   setTokenInLocalStorage,
 } from "../services/localStorageService";
 import {
-  businessUser,
+  contactUs,
   deleteUser,
   editUser,
   getUserFromDB,
@@ -20,6 +20,7 @@ import {
   login,
   signup,
 } from "../services/usersApiService";
+import normalizeMessage from "../helpers/normalization/normalizeMessage";
 
 const useUsers = () => {
   const [users, setUsers] = useState(null);
@@ -49,6 +50,7 @@ const useUsers = () => {
       setToken(token);
       const userFromLocalStorage = getUser();
       requestStatus(false, null, null, userFromLocalStorage);
+      snack("success", "The user has successfully logged in");
       navigate(ROUTES.ROOT);
     } catch (error) {
       requestStatus(false, error, null);
@@ -56,8 +58,9 @@ const useUsers = () => {
   }, []);
 
   const handleLogout = useCallback(() => {
-    removeToker();
+    removeToken();
     setUser(null);
+    snack("success", "The user has successfully logged out of");
     navigate(ROUTES.ROOT);
   }, [setUser]);
 
@@ -70,6 +73,7 @@ const useUsers = () => {
           email: userFromClient.email,
           password: userFromClient.password,
         });
+        snack("success", "The user has successfully registered");
       } catch (error) {
         requestStatus(false, error, null);
       }
@@ -114,24 +118,27 @@ const useUsers = () => {
     try {
       setIsPending(true);
       const userDeleted = await deleteUser(userId);
-      navigate(ROUTES.ROOT);
+      removeToken();
+      setUser(null);
+      snack("success", "The user has successfully deleted");
       requestStatus(false, null, userDeleted);
     } catch (error) {
       requestStatus(false, error, null);
     }
   }, []);
 
-  const handleBusinessUser = useCallback(
-    async (user_id) => {
+  const handleContactUs = useCallback(
+    async (message) => {
       try {
-        await businessUser(user_id);
-        snack("success", "The user has been successfully changed");
-        requestStatus(false, null, users, user);
+        let data = normalizeMessage(message);
+        await contactUs(data);
+        snack("success", "The message was send successfully");
+        requestStatus(false, null, null, null);
       } catch (error) {
         requestStatus(false, error, null);
       }
     },
-    [requestStatus, users]
+    [requestStatus]
   );
 
   const userValue = useMemo(() => {
@@ -147,7 +154,7 @@ const useUsers = () => {
     handleGetUser,
     handleEditUser,
     handleDeleteUser,
-    handleBusinessUser,
+    handleContactUs,
   };
 };
 

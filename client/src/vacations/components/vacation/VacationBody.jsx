@@ -17,9 +17,9 @@ const alertReason = {
   deleteMessage:
     "This operation will completely delete the vacation story and all its data from the database and it will not be possible to retrieve the story afterwards",
   notLoggedMessage:
-    "You need to login for you be able to read the full port about this vacation vacation.",
+    "You need to login for you be able to read the full post about this vacation story.",
 };
-const VacationBody = ({ vacation, onLike = () => {} }) => {
+const VacationBody = ({ vacation, socket, onLike = () => {} }) => {
   const { user } = useUser();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -32,12 +32,17 @@ const VacationBody = ({ vacation, onLike = () => {} }) => {
     if (!user) return false;
     return !!vacation.likes.find((id) => id === user._id);
   });
-  
+
   const handleLike = async () => {
     setLike((prev) => !prev);
     await handleLikeVacation(vacation._id);
-    onLike();
     changeLikeValue(isLike);
+    socket.emit("sendNotification", {
+      userId: user._id,
+      fullName: `${user.name.first} ${user.name.last}`,
+      status: !isLike,
+    });
+    onLike();
   };
 
   const changeLikeValue = (value) => {
@@ -81,6 +86,7 @@ const VacationBody = ({ vacation, onLike = () => {} }) => {
             <ExpandMoreOutlinedIcon />
           </IconButton>
         )}
+
         {user && (
           <IconButton
             onClick={() =>
@@ -125,7 +131,6 @@ const VacationBody = ({ vacation, onLike = () => {} }) => {
             </>
           )}
         </Box>
-        
       </Box>
       <VacationDeleteAlert
         isDialogOpen={isDialogOpen}

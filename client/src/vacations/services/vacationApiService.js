@@ -69,3 +69,12 @@ export const deleteVacation = async (vacationId) => {
     return Promise.reject(error.message);
   }
 };
+
+export const getNotigication = async (vacationId) => {
+  try {
+    const { data } = await axios.delete(`${apiUrl}/vacations/${vacationId}`);
+    return data;
+  } catch (error) {
+    return Promise.reject(error.message);
+  }
+};

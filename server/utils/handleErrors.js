@@ -8,7 +8,7 @@ const handleError = (res, status, message = "") => {
 };
 
 const handleBadRequest = async (validator, error) => {
-  await addErrorToLogsFiles(error.message);
+  addErrorToLogsFiles(error.message);
   const errorMessage = `${validator} Error: ${error.message}`;
   error.message = errorMessage;
   error.status = error.status || 400;
@@ -18,10 +18,6 @@ const handleBadRequest = async (validator, error) => {
 const handleJoiError = async (error) => {
   const joiError = new Error(error.details[0].message);
   return handleBadRequest("Joi", joiError);
-};
-
-const wrongInfo = (message = "") => {
-  return Promise.reject(message);
 };
 
 exports.handleError = handleError;

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { ProSidebar } from "react-pro-sidebar";
 import {
   Box,
-  Divider,
   IconButton,
   Typography,
   useTheme,
@@ -36,7 +35,7 @@ const Sidebar = () => {
         },
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
-          padding: "0.5% 2% 0 1% !important",
+          padding: "0.5% 0.5% 0 1% !important",
           position: "fixed",
         },
       }}
@@ -50,7 +49,7 @@ const Sidebar = () => {
             m="4% 0 0 0"
           >
             {!isCollapsed && (
-              <Typography variant="h3" color={colors.gray[100]}>
+              <Typography variant="h4" color={colors.gray[100]}>
                 VACTIONS
               </Typography>
             )}
@@ -59,15 +58,6 @@ const Sidebar = () => {
               <MenuOutlinedIcon />
             </IconButton>
           </Box>
-          {/* {!isCollapsed && user && (
-            <Box>
-              <Box textAlign="center" mt="5%">
-                <Typography variant="h2" color={colors.gray[100]}>
-                  {`${user && user.firstName} ${user && user.lastName}`}
-                </Typography>
-              </Box>
-            </Box>
-          )} */}
         </Box>
 
         <Box>
@@ -99,33 +89,7 @@ const Sidebar = () => {
             )}
           </Box>
 
-          <Divider />
           <Box display="flex" flexDirection="column">
-            <Box>
-              {!isCollapsed ? (
-                <Typography
-                  variant="h6"
-                  color={colors.gray[300]}
-                  sx={{
-                    m: "5% 0 2% 10%",
-                    display: "flex",
-                  }}
-                >
-                  CONTACS
-                </Typography>
-              ) : (
-                <Typography
-                  variant="h6"
-                  color={colors.gray[300]}
-                  sx={{
-                    m: "5% 0 2% 10%",
-                    display: "flex",
-                    justifyContent: "center",
-                    width: "75%",
-                  }}
-                ></Typography>
-              )}
-            </Box>
             <NavItem
               to={ROUTES.ABOUT}
               label="About Us"
@@ -134,7 +98,7 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
             <NavItem
-              to={ROUTES.CONTACTS}
+              to={ROUTES.CONTACT_US}
               label="Contact Us"
               icon={<EmailOutlinedIcon />}
               isCollapsed={isCollapsed}

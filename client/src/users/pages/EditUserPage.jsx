@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Box, Container } from "@mui/material";
 import { useParams } from "react-router-dom";
 
@@ -35,12 +35,14 @@ const EditUserPage = () => {
     });
   }, []);
 
+  if(!user) return <Navigate replace to={ROUTES.LOGIN} />
+
   return (
     <Box>
-      <Box align="center">
+      <Box>
         <HeaderPage
           title="Edit account"
-          subtitle="please edit account to create youe own vacation story"
+          subtitle="edit account to create youe own vacation story"
         />
       </Box>
       <Container

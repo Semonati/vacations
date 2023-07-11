@@ -13,6 +13,9 @@ const initialVacationForm = {
   street: "",
   houseNumber: 0,
   zip: 0,
+  price: 0,
+  createdAt:"",
+  updatedAt:"",
 };
 
 export default initialVacationForm;

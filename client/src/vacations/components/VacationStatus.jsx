@@ -1,12 +1,15 @@
 import React from "react";
 import { arrayOf, bool, string } from "prop-types";
 import { Typography } from "@mui/material";
+
 import ErrorAlert from "../../components/ErrorAlert";
 import Spinner from "../../components/Spinner";
-import Vacations from "./Vacations";
 import vacationType from "../models/types/vacationType";
+import { useNotification } from "../../providers/NotificationProvider";
+import FilteringDialog from "../../components/FilteringDialog";
 
 const VacationStatus = ({ isPending, error, vacations, onLike }) => {
+  const { socket } = useNotification();
   if (isPending) return <Spinner color="secondary" />;
   if (error) return <ErrorAlert errorMessage={error} />;
 
@@ -17,7 +20,9 @@ const VacationStatus = ({ isPending, error, vacations, onLike }) => {
       </Typography>
     );
   if (vacations && !!vacations.length)
-    return <Vacations vacations={vacations} onLike={onLike} />;
+    return (
+      <FilteringDialog vacations={vacations} onLike={onLike} socket={socket} />
+    );
 };
 
 VacationStatus.propTypes = {

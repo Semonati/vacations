@@ -4,6 +4,7 @@ import Form from "../../forms/components/Form";
 import Input from "../../forms/components/Input";
 
 const VacationsForm = ({
+  title,
   onSubmit,
   onReset,
   errors,
@@ -13,6 +14,7 @@ const VacationsForm = ({
 }) => {
   return (
     <Form
+      title={title}
       onSubmit={onSubmit}
       onReset={onReset}
       errors={errors}
@@ -168,6 +170,44 @@ const VacationsForm = ({
         variant="filled"
         disabled={true}
         multiline={false}
+        sm={4}
+      />
+      {title === "edit vacation" && (
+        <Input
+          name="updatedAt"
+          label="last updated At"
+          error={errors.updatedAt}
+          onChange={onInputChange}
+          data={data}
+          variant="filled"
+          disabled={true}
+          multiline={false}
+          sm={4}
+        />
+      )}
+      {title === "create vacation" && (
+        <Input
+          name="createdAt"
+          label="created At"
+          error={errors.createdAt}
+          onChange={onInputChange}
+          data={data}
+          variant="filled"
+          disabled={true}
+          multiline={false}
+          sm={4}
+        />
+      )}
+      <Input
+        name="price"
+        label="price"
+        type="number"
+        error={errors.price}
+        onChange={onInputChange}
+        data={data}
+        variant="filled"
+        multiline={false}
+        sm={4}
       />
     </Form>
   );

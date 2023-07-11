@@ -10,7 +10,7 @@ const HeaderPage = ({ title, subtitle }) => {
   title = firstLetterUpperCase(title);
   subtitle = firstLetterUpperCase(subtitle);
   return (
-    <Box mb="2%">
+    <Box mb="2%" align="center">
       <Typography
         variant="h1"
         color={colors.green[500]}

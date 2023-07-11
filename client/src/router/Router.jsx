@@ -17,6 +17,7 @@ import EditUserPage from "../users/pages/EditUserPage";
 import ProfilePage from "../users/pages/ProfilePage";
 import ForgotPasswordPage from "../users/pages/ForgotPasswordPage";
 import EnterNewPassword from "../users/pages/EnterNewPassword";
+import NotificationAlert from "../layout/topbar/notificationMenu/NotificationAlert";
 
 const Router = () => {
   return (
@@ -24,7 +25,7 @@ const Router = () => {
       <Route path={ROUTES.ROOT} element={<VacationsPage />} />
       <Route path={ROUTES.ABOUT} element={<AboutPage />} />
       <Route path={ROUTES.My_VACATIONS} element={<MyVacationsPage />} />
-      <Route path={ROUTES.CONTACTS} element={<ContactPage />} />
+      <Route path={ROUTES.CONTACT_US} element={<ContactPage />} />
       <Route path={ROUTES.CREAT_VACATION} element={<CreateVacationPage />} />
       <Route
         path={`${ROUTES.FAV_VACATION}/:userId`}
@@ -38,11 +39,16 @@ const Router = () => {
         path={`${ROUTES.VACATION_DETAILS}/:vacationId`}
         element={<VacationsDetailsPage />}
       />
+      <Route path={ROUTES.NOTIFICATIONS} element={<NotificationAlert />} />
       <Route path={ROUTES.LOGIN} element={<LoginPage />} />
       <Route path={ROUTES.SIGNUP} element={<SigninPage />} />
       <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
       <Route path={ROUTES.ENTER_NEW_PASSWORD} element={<EnterNewPassword />} />
       <Route path={`${ROUTES.EDIT_USER}/:userId`} element={<EditUserPage />} />
+      <Route
+        path={`${ROUTES.DELETE_USER}/:userId`}
+        element={<EditUserPage />}
+      />
       <Route
         path={`${ROUTES.USER_PROFILE}/:userId`}
         element={<ProfilePage />}

@@ -23,11 +23,11 @@ const AutoLogout = ({ children }) => {
         window.removeEventListener(item, resetTimer);
       });
       logoutAction();
-    }, 14400000);
+    }, 600000);
   };
 
-  const resetTimer = () => {
-    if (timer) clearTimeout(timer);
+  const resetTimer = () => {    
+    if (timer) clearTimeout(timer);    
   };
 
   useEffect(() => {

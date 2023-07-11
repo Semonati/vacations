@@ -20,7 +20,7 @@ const PopupAlert = ({
   const navigate = useNavigate();
 
   const onAlert = () => {
-    if(user){
+    if (user) {
       handleDeleteVacation(vacationId);
       return navigate(ROUTES.ROOT);
     }

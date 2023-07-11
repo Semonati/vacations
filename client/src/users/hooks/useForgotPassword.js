@@ -38,7 +38,6 @@ const useForgotPassword = () => {
       const token = await forgotPassword(user);
       setPasswordTokenInLocalStorage(token);
       setPassword(token);
-      navigate(ROUTES.ENTER_NEW_PASSWORD);
       const passwordFromLocalStorage = getPassword();
       requestStatus(false, null, passwordFromLocalStorage);
     } catch (error) {

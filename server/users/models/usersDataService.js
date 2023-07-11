@@ -1,8 +1,9 @@
 const User = require("./mongoDB/Users");
+const Messgaes = require("./mongoDB/ContactUs");
 const nodemailer = require("nodemailer");
 const config = require("config");
 
-const { handleBadRequest } = require("../../utils/handleErrors");
+const { handleBadRequest, handleError } = require("../../utils/handleErrors");
 const { generateAuthToken } = require("../../auth/Providers/jwt");
 const { comparePassword, generateUserPassword } = require("../helpers/bcrypt");
 const {
@@ -32,10 +33,11 @@ const getUser = async (_id) => {
   if (DB === "MONGODB") {
     try {
       const user = await User.findById({ _id }, { __v: 0, password: 0 });
-      if (!user) throw new Error("There is no user with this ID");
+      if (!user) return Promise.reject("There is no user with this ID");
       return Promise.resolve(user);
     } catch (error) {
       error.status = 404;
+      error.message = "There is no user with this ID";
       handleBadRequest("Mongoose", error);
       return Promise.reject(error);
     }
@@ -48,12 +50,13 @@ const registerUser = async (userData) => {
     try {
       const { email } = userData;
       let user = await User.findOne({ email });
-      if (user) throw new Error("User already registered");
+      if (user) return Promise.reject("User already registered");
       user = new User(userData);
       user = await user.save();
       return Promise.resolve(user);
     } catch (error) {
       error.status = 404;
+      error.message = "User already registered";
       handleBadRequest("Mongoose", error);
       return Promise.reject(error);
     }
@@ -61,7 +64,7 @@ const registerUser = async (userData) => {
   return Promise.resolve([]);
 };
 
-const loginUser = async (userData) => {
+const loginUser = async (userData, res) => {
   if (DB === "MONGODB") {
     try {
       const { email, password } = userData;
@@ -91,7 +94,7 @@ const userForgotPassword = async (email) => {
   if (DB === "MONGODB") {
     try {
       let user = await User.findOne({ email });
-      if (!user) throw new Error("User not in data base");
+      if (!user) return Promise.reject("User not in data base");
       const token = generateForgotPasswordToken(user);
       const link = `http://localhost:8080/users/reset-password/${user._id}/${token}`;
 
@@ -104,7 +107,7 @@ const userForgotPassword = async (email) => {
         },
       });
 
-      let info = await transporter.sendMail({
+      await transporter.sendMail({
         from: EMAIL,
         to: email,
         subject: "Reset password",
@@ -114,6 +117,7 @@ const userForgotPassword = async (email) => {
       return Promise.resolve(link);
     } catch (error) {
       error.status = 404;
+      error.message = "This user is not in data base";
       handleBadRequest("Mongoose", error);
       return Promise.reject(error);
     }
@@ -123,27 +127,41 @@ const userForgotPassword = async (email) => {
 
 const userPasswordTokenVerifay = async (id, token) => {
   if (DB === "MONGODB") {
-    let user = await User.findOne({ _id: id });
-    if (!user) throw new Error("User not in data base");
-    const tokenPassword = verifayPasswordToken(user, token);
-    return Promise.resolve(tokenPassword);
+    try {
+      let user = await User.findOne({ _id: id });
+      if (!user) return Promise.reject("User not in data base");
+      const tokenPassword = verifayPasswordToken(user, token);
+      return Promise.resolve(tokenPassword);
+    } catch (error) {
+      error.status = 400;
+      error.message = "This user is not in data base";
+      handleBadRequest("Mongoose", error);
+      return Promise.reject(error);
+    }
   }
 };
 
 const resetUserPassword = async (id, password) => {
   if (DB === "MONGODB") {
-    let user = await User.findOne({ _id: id });
-    if (!user) throw new Error("User not in data base");
-    const validPassword = generateUserPassword(password);
-    user = await User.updateOne(
-      { _id: id },
-      {
-        $set: {
-          password: validPassword,
-        },
-      }
-    );
-    return Promise.resolve(user);
+    try {
+      let user = await User.findOne({ _id: id });
+      if (!user) return Promise.reject("User not in data base");
+      const validPassword = generateUserPassword(password);
+      user = await User.updateOne(
+        { _id: id },
+        {
+          $set: {
+            password: validPassword,
+          },
+        }
+      );
+      return Promise.resolve(user);
+    } catch (error) {
+      error.status = 400;
+      error.message = "This user is not in data base";
+      handleBadRequest("Mongoose", error);
+      return Promise.reject(error);
+    }
   }
 };
 
@@ -154,12 +172,13 @@ const updateUser = async (userId, data) => {
         new: true,
       });
       if (!user)
-        throw new Error(
+        return Promise.reject(
           "Could not update user because a user with this ID cannot found in the database"
         );
       return Promise.resolve(user);
     } catch (error) {
       error.status = 400;
+      error.message = "This user is not in data base";
       handleBadRequest("Mongoose", error);
       return Promise.reject(error);
     }
@@ -178,12 +197,47 @@ const deleteUser = async (_id) => {
         }
       );
       if (!user)
-        throw new Error(
+        return Promise.reject(
           "Could not delete this user because a user with this ID cannot found in the database"
         );
       return Promise.resolve(user);
-    } catch (error) {}
+    } catch (error) {
+      error.status = 400;
+      error.message = "This user is not in data base";
+      return Promise.reject(error);
+    }
   }
+};
+
+const contactUsMessage = async (data) => {
+  if (DB === "MONGODB") {
+    try {
+      let transporter = nodemailer.createTransport({
+        service: "gmail",
+        secure: true,
+        auth: {
+          user: EMAIL,
+          pass: PASSWORD,
+        },
+      });
+
+      await transporter.sendMail({
+        from: data.email,
+        to: EMAIL,
+        subject: data.subject,
+        text: data.message,
+      });
+
+      let messgae = new Messgaes(data);
+      messgae = await messgae.save();
+      return Promise.resolve("The message was send seccessfully");
+    } catch (error) {
+      error.status = 404;
+      handleBadRequest("Mongoose", error);
+      return Promise.reject(error);
+    }
+  }
+  return Promise.resolve([]);
 };
 
 exports.getAllUsers = getAllUsers;
@@ -195,3 +249,4 @@ exports.resetUserPassword = resetUserPassword;
 exports.loginUser = loginUser;
 exports.updateUser = updateUser;
 exports.deleteUser = deleteUser;
+exports.contactUsMessage = contactUsMessage;

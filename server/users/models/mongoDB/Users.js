@@ -25,7 +25,6 @@ const userSchema = new mongoose.Schema({
   address: Address,
   aboutMe: {
     type: String,
-    minLength: 2,
     maxLength: 500,
     trim: true,
     lowercase: true,

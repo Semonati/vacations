@@ -1,12 +1,12 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { node } from "prop-types";
-import TopMenu from "../layout/topbar/menu/TopMenu";
+import TopUserMenu from "../layout/topbar/userMenu/TopUserMenu";
 
 const MenuContext = React.createContext(null);
 
 export const MenuProvider = ({ children }) => {
-  const theme = useTheme()
+  const theme = useTheme();
   const screenSize = useMediaQuery(theme.breakpoints.up("md"));
   const [isOpen, setIsOpen] = useState();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -25,12 +25,12 @@ export const MenuProvider = ({ children }) => {
       <Box
         ref={anchorRef}
         position="fixed"
-        top="9%"
+        top="10%"
         right="4%"
         width="100%"
       ></Box>
       {anchorEl && (
-        <TopMenu
+        <TopUserMenu
           anchorEl={anchorEl}
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Box, Container, IconButton } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+
 import HeaderPage from "../../components/HeaderPage";
 import ROUTES from "../../router/routesModel";
 import useVacations from "../hooks/useVacations";
@@ -19,6 +20,7 @@ const MyVacationsPage = () => {
   }, []);
 
   if (!user) return <Navigate replace to={ROUTES.ROOT} />;
+
   return (
     <Box m="2%">
       <Container sx={{ position: "relative", minHeight: "92vh" }}>

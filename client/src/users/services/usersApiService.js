@@ -80,9 +80,9 @@ export const deleteUser = async (userId) => {
   }
 };
 
-export const businessUser = async (userId) => {
+export const contactUs = async (info) => {
   try {
-    const { data } = await axios.patch(`${apiUrl}/users/${userId}`);
+    const { data } = await axios.post(`${apiUrl}/users/contact-us`, info);
     return data;
   } catch (error) {
     return Promise.reject(error.message);

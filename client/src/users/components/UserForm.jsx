@@ -18,11 +18,11 @@ const UserForm = ({
   const navigate = useNavigate();
   return (
     <Form
+      title={title}
       onSubmit={onSubmit}
       onReset={onReset}
       onChange={onChange}
-      styles={{ maxWidth: "550px" }}
-      title={title}
+      styles={{ maxWidth: "750px" }}
       to={ROUTES.ROOT}
     >
       {title !== "login" && (
@@ -66,7 +66,7 @@ const UserForm = ({
       <Input
         label="email"
         name="email"
-        type="email"        
+        type="email"
         error={errors.email}
         onChange={onInputChange}
         data={data}

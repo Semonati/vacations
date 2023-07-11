@@ -2,6 +2,7 @@ import { Avatar, Box, Container } from "@mui/material";
 import React from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Navigate } from "react-router-dom";
+
 import useForm from "../../forms/hooks/useForm";
 import ROUTES from "../../router/routesModel";
 import initialLoginForm from "../helpers/initialForms/initialLoginForm";
@@ -24,7 +25,7 @@ const LoginPage = () => {
 
   return (
     <Box>
-      <Box align="center">
+      <Box>
         <HeaderPage
           title="Login"
           subtitle="please login to create youe own vacation story"

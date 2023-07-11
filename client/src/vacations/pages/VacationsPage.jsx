@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+
 import HeaderPage from "../../components/HeaderPage";
 import { useEffect } from "react";
 import useVacations from "../hooks/useVacations";

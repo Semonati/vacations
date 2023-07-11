@@ -18,6 +18,9 @@ const normalizaeVacation = (vacation) => {
       houseNumber: vacation.houseNumber,
       zip: vacation.zip,
     },
+    price: vacation.price,
+    createdAt: vacation.createdAt,
+    updatedAt: vacation.updatedAt,
   };
 };
 

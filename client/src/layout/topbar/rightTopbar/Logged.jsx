@@ -8,7 +8,7 @@ const Logged = () => {
   return (
     <Tooltip title="Open user settings">
       <IconButton
-        sx={{ display: "inline-flex", marginLeft: 1 }}
+        sx={{ display: "inline-flex" }}
         onClick={() => setOpen(true)}
       >
         <PersonOutlinedIcon />

@@ -1,4 +1,4 @@
-import { shape, string, arrayOf, oneOfType } from "prop-types";
+import { shape, string, arrayOf, oneOfType, number } from "prop-types";
 import addressType from "./addressType";
 import imageType from "./imageType";
 
@@ -14,7 +14,9 @@ const vacationType = shape({
   likes: arrayOf(string).isRequired,
   web: oneOfType([string]),
   user_id: string.isRequired,
-  createdAt: string.isRequired,
+  updatedAt: string,
+  createdAt: string,
+  price: number,
 });
 
 export default vacationType;

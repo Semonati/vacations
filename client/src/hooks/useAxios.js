@@ -21,7 +21,7 @@ const useAxios = () => {
 
     axios.interceptors.response.use(null, (error) => {
       const expectedError = error.response && error.response.status >= 400;
-      if (expectedError) snack("error", error.message);
+      if (expectedError) snack("error", error.response.data);
       return Promise.reject(error);
     });
   }, [token, snack]);
@@ -36,7 +36,7 @@ const useAxios = () => {
 
     axios.interceptors.response.use(null, (error) => {
       const expectedError = error.response && error.response.status >= 400;
-      if (expectedError) snack("error", error.message);
+      if (expectedError) snack("error", error.error.response.data);
       return Promise.reject(error);
     });
   }, [password, snack]);

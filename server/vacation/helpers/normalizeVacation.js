@@ -11,6 +11,7 @@ const normalizeVacation = async (vacation, userId) => {
       ...vacation.address,
       state: vacation.address.state || "NOT DEFINED",
     },
+    price: vacation.price || 0,
     user_id: vacation.user_id || userId,
   };
 };

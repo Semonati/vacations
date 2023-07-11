@@ -14,6 +14,7 @@ const {
   userForgotPassword,
   userPasswordTokenVerifay,
   resetUserPassword,
+  contactUsMessage,
 } = require("../models/usersDataService");
 const {
   validateRegistration,
@@ -21,8 +22,8 @@ const {
   validateUserUpdate,
   validateForgotPassword,
 } = require("../validation/userValidationService");
+const userMessageValidation = require("../validation/Joi/userMessageValidation");
 
-const app = express();
 const router = express.Router();
 
 router.get("/", auth, async (req, res) => {
@@ -37,7 +38,7 @@ router.get("/", auth, async (req, res) => {
     const users = await getAllUsers();
     res.status(200).send(users);
   } catch (error) {
-    return handleError(res, error.status || 500, error.message);
+    return handleError(res, error.status || 500, error);
   }
 });
 
@@ -54,7 +55,7 @@ router.get("/:id", auth, async (req, res) => {
     const user = await getUser(id);
     res.status(200).send(user);
   } catch (error) {
-    return handleError(res, error.status || 500, error.message);
+    return handleError(res, error.status || 500, error);
   }
 });
 
@@ -69,7 +70,7 @@ router.post("/", async (req, res) => {
     user = await registerUser(user);
     return res.status(201).send(user);
   } catch (error) {
-    return handleError(res, error.status || 500, error.message);
+    return handleError(res, error.status || 500, error);
   }
 });
 
@@ -79,10 +80,10 @@ router.post("/login", async (req, res) => {
     const { error } = validateLogin(user);
     if (error)
       return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
-    user = await loginUser(user);
+    user = await loginUser(user,res);
     return res.status(200).send(user);
   } catch (error) {
-    return handleError(res, error.status || 500, error.message);
+    return handleError(res, error.status || 404, error);
   }
 });
 
@@ -91,29 +92,37 @@ router.post("/forgot-password", async (req, res) => {
     let { email } = req.body;
     const { error } = validateForgotPassword(email);
     if (error)
-    return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
+      return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
     email = await userForgotPassword(email);
     res.status(200).send(email);
   } catch (error) {
-    return handleError(res, error.status || 500, error.message);
+    return handleError(res, error.status || 500, error);
   }
 });
 
 router.get("/reset-password/:id/:token", async (req, res) => {
   try {
     const { id, token } = req.params;
-    let user = await userPasswordTokenVerifay(id, token);
-    res.send(user);
+    let password = await userPasswordTokenVerifay(id, token);
+    if (!password)
+      return res.status(404).send("This link is no more available to use");
+    return res.send(
+      require("openurl").open("http://localhost:3000/enter-new-password")
+    );
   } catch (error) {
-    return handleError(res, error.status || 500, error.message);
+    return handleError(res, error.status || 500, error);
   }
 });
 
 router.post("/reset-password/:id/:token", async (req, res) => {
-  const { id } = req.params;
-  const { password } = req.body;
-  let user = await resetUserPassword(id, password);
-  res.send(user);
+  try {
+    const { id } = req.params;
+    const { password } = req.body;
+    let user = await resetUserPassword(id, password);
+    res.send(user);
+  } catch (error) {
+    return handleError(res, error.status || 500, error);
+  }
 });
 
 router.put("/:id", auth, async (req, res) => {
@@ -134,7 +143,7 @@ router.put("/:id", auth, async (req, res) => {
     user = await updateUser(id, user);
     return res.status(204).send(user);
   } catch (error) {
-    return handleError(res, error.status || 500, error.message);
+    return handleError(res, error.status || 500, error);
   }
 });
 
@@ -150,7 +159,22 @@ router.delete("/:id", auth, async (req, res) => {
       );
     const deletedUser = await deleteUser(id);
     return res.status(202).send(deletedUser);
-  } catch (error) {}
+  } catch (error) {
+    return handleError(res, error.status || 500, error);
+  }
+});
+
+router.post("/contact-us", async (req, res) => {
+  try {
+    let data = req.body;
+    const { error } = userMessageValidation(data);
+    if (error)
+      return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
+    data = await contactUsMessage(data);
+    return res.status(202).send(data);
+  } catch (error) {
+    return handleError(res, error.status || 500, error);
+  }
 });
 
 module.exports = router;

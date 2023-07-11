@@ -3,13 +3,13 @@ import { arrayOf, object } from "prop-types";
 import { Box, Grid } from "@mui/material";
 import Vacation from "./vacation/Vacation";
 
-const Vacations = ({ vacations, onLike }) => {
+const Vacations = ({ vacations, onLike, socket }) => {
   return (
     <Box>
       <Grid container columns={13}>
         {vacations.map((vacation) => (
           <Grid item key={vacation._id} sx={{ m: "0 2% 10% 0" }} xs={12} md={6}>
-            <Vacation vacation={vacation} onLike={onLike} />
+            <Vacation vacation={vacation} onLike={onLike} socket={socket} />
           </Grid>
         ))}
       </Grid>

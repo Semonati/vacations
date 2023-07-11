@@ -8,6 +8,11 @@ const cors = require("./middlewares/cors");
 const logger = require("./logger/loggerService");
 const connectToDb = require("./DB/dbService");
 const { handleError } = require("./utils/handleErrors");
+const {
+  addUser,
+  removeUser,
+  getIoServer,
+} = require("./users/helpers/socketio");
 const app = express();
 
 app.use(cors);
@@ -22,7 +27,9 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = config.get("PORT");
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(chalk.blueBright(`Listening on: http://localhost:${PORT}`));
   connectToDb();
 });
+
+getIoServer(server);

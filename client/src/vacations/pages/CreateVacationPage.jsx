@@ -19,8 +19,10 @@ const CreateVacationPage = () => {
     createVacationSchema,
     handleCreateVacation
   );
-  
-  value.data.creatorName = `${user.name.first} ${user.name.last}`;
+  if (user) {
+    value.data.creatorName = `${user.name.first} ${user.name.last}`;
+    value.data.createdAt = new Date().toLocaleDateString();
+  }
 
   if (!user) return <Navigate replace to={ROUTES.ROOT} />;
 
@@ -38,15 +40,18 @@ const CreateVacationPage = () => {
           flexDirection: "column",
         }}
       >
-        <VacationsForm
-          onSubmit={rest.onSubmit}
-          onReset={rest.handleReset}
-          errors={value.errors}
-          onFormChange={rest.validateForm}
-          onInputChange={rest.handleChange}
-          data={value.data}
-          setData={rest.setData}
-        />
+        {user && (
+          <VacationsForm
+            title="create vacation"
+            onSubmit={rest.onSubmit}
+            onReset={rest.handleReset}
+            errors={value.errors}
+            onFormChange={rest.validateForm}
+            onInputChange={rest.handleChange}
+            data={value.data}
+            setData={rest.setData}
+          />
+        )}
       </Container>
     </Box>
   );

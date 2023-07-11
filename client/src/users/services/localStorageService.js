@@ -16,9 +16,11 @@ export const getUser = () => {
   }
 };
 
-export const removeToker = () => localStorage.removeItem(TOKEN);
+export const removeToken = () => localStorage.removeItem(TOKEN);
 
 export const getToken = () => localStorage.getItem(TOKEN);
+
+
 
 export const setPasswordTokenInLocalStorage = (passwordToken) => {
   localStorage.setItem(PASSWORD, passwordToken);

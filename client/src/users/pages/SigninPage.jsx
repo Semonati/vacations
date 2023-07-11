@@ -22,9 +22,10 @@ const SigninPage = () => {
   );
 
   if (user) return <Navigate replace to={ROUTES.ROOT} />;
+  
   return (
     <Box>
-      <Box align="center">
+      <Box>
         <HeaderPage
           title="Signup"
           subtitle="please Signup to create youe own vacation story"

@@ -9,7 +9,7 @@ const validateVacationWithJoi = (vacation) => {
     title: titleAndAddress,
     creatorName: Joi.string(),
     subtitle: titleAndAddress,
-    description: Joi.string().min(2).max(1024).required(),
+    description: Joi.string().min(2).required(),
     phone: Joi.string()
       .ruleset.regex(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/)
       .rule({ message: 'vacation "phone" mast be a valid phone number' })
@@ -34,7 +34,14 @@ const validateVacationWithJoi = (vacation) => {
       houseNumber: Joi.number().allow(""),
       zip: Joi.number().allow(""),
     }),
+    price: Joi.number().allow(""),
     user_id: Joi.string().allow(""),
+      createdAt: Joi.string().ruleset.regex(
+    /^\s*(3[01]|[12][0-9]|0?[1-9])\/(1[012]|0?[1-9])\/((?:19|20)\d{2})\s*$/
+  ),
+  updatedAt: Joi.string().ruleset.regex(
+    /^\s*(3[01]|[12][0-9]|0?[1-9])\/(1[012]|0?[1-9])\/((?:19|20)\d{2})\s*$/
+  ),
   });
   return schema.validate(vacation);
 };
