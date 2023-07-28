@@ -8,7 +8,7 @@ const Vacations = ({ vacations, onLike, socket }) => {
     <Box>
       <Grid container columns={13}>
         {vacations.map((vacation) => (
-          <Grid item key={vacation._id} sx={{ m: "0 2% 10% 0" }} xs={12} md={6}>
+          <Grid item key={vacation._id} sx={{ m: "0 2% 5% 0", width:"100%" }} >
             <Vacation vacation={vacation} onLike={onLike} socket={socket} />
           </Grid>
         ))}

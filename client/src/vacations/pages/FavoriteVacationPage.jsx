@@ -24,7 +24,7 @@ const FavoriteVacationPage = () => {
   if (!user) return <Navigate replace to={ROUTES.ROOT} />;
 
   return (
-    <Box m="2%">
+    <Box m="0 5%">
       <HeaderPage
         title="favorite vacation"
         subtitle="all my favorite vacation"

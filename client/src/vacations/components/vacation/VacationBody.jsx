@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { object } from "prop-types";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
@@ -78,31 +78,40 @@ const VacationBody = ({ vacation, socket, onLike = () => {} }) => {
       <Box display="flex" justifyContent={user ? "space-around" : "center"}>
         {/* VACATION DETAILS */}
         {!user && (
-          <IconButton
+          <Button
             onClick={() => onAlert("open", "login")}
             sx={{ color: colors.gray[100] }}
           >
-            <Typography variant="h5">tell me mor</Typography>
+            <Typography variant="h5" color="secondary">
+              tell me more
+            </Typography>
             <ExpandMoreOutlinedIcon />
-          </IconButton>
+          </Button>
         )}
 
         {user && (
-          <IconButton
+          <Button
             onClick={() =>
               navigate(`${ROUTES.VACATION_DETAILS}/${vacation._id}`)
             }
             sx={{ color: colors.gray[100] }}
+            size="small"
           >
-            <Typography variant="h5">tell me mor</Typography>
+            <Typography variant="h5" color="secondary">
+              tell me more
+            </Typography>
             <ExpandMoreOutlinedIcon />
-          </IconButton>
+          </Button>
         )}
 
         <Box>
           {/* LIKE VACATION */}
           {user && (
-            <IconButton aria-label="add to favorites" onClick={handleLike}>
+            <IconButton
+              aria-label="add to favorites"
+              onClick={handleLike}
+              size="small"
+            >
               <FavoriteBorderOutlinedIcon
                 color={isLike ? "error" : "inherit"}
               />
@@ -115,6 +124,7 @@ const VacationBody = ({ vacation, socket, onLike = () => {} }) => {
               onClick={() =>
                 navigate(`${ROUTES.EDIT_VACATION}/${vacation._id}`)
               }
+              size="small"
             >
               <EditOutlinedIcon />
             </IconButton>

@@ -14,7 +14,7 @@ const VacationsPage = () => {
   }, [handleGetVacations]);
 
   return (
-    <Box m="2%">
+    <Box m="0 5%">
       <HeaderPage
         title="View All Stories And Vacations"
         subtitle="Here you can see everyone's memories from tripe or vacation "

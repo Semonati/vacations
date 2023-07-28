@@ -1,11 +1,6 @@
 import { useState } from "react";
 import { ProSidebar } from "react-pro-sidebar";
-import {
-  Box,
-  IconButton,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import "react-pro-sidebar/dist/css/styles.css";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -24,14 +19,23 @@ const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [width, setWidth] = useState("15vw");
   const [selected, setSelected] = useState("Home");
 
-  
+  const open = (value) => {
+    if (value === true) {
+      setWidth("-8vw");
+      return setIsCollapsed(value);
+    }
+    setWidth("15vw");
+    return setIsCollapsed(value);
+  };
   return (
     <Box
       sx={{
         "& .pro-sidebar": {
-          width: "10vw",
+          minWidth: width,
+          width: width,
         },
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
@@ -54,20 +58,21 @@ const Sidebar = () => {
               </Typography>
             )}
 
-            <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+            <IconButton onClick={() => open(!isCollapsed)}>
               <MenuOutlinedIcon />
             </IconButton>
           </Box>
         </Box>
 
         <Box>
-          <Box display="flex" flexDirection="column">
+          <Box display="flex" flexDirection="column" justifyContent="center">
             <NavItem
               to={ROUTES.ROOT}
               label="Home"
               icon={<HomeOutlinedIcon />}
               isCollapsed={isCollapsed}
               setSelected={setSelected}
+              selected={selected}
             />
             {user && (
               <Box display="flex" flexDirection="column">
@@ -77,13 +82,15 @@ const Sidebar = () => {
                   icon={<FlightOutlinedIcon />}
                   isCollapsed={isCollapsed}
                   setSelected={setSelected}
+                  selected={selected}
                 />
                 <NavItem
                   to={`${ROUTES.FAV_VACATION}/${user._id}`}
-                  label="Favorites Vacations"
+                  label="Fav Vacations"
                   icon={<FavoriteBorderOutlinedIcon />}
                   isCollapsed={isCollapsed}
                   setSelected={setSelected}
+                  selected={selected}
                 />
               </Box>
             )}
@@ -96,6 +103,7 @@ const Sidebar = () => {
               icon={<InfoOutlinedIcon />}
               isCollapsed={isCollapsed}
               setSelected={setSelected}
+              selected={selected}
             />
             <NavItem
               to={ROUTES.CONTACT_US}
@@ -103,6 +111,7 @@ const Sidebar = () => {
               icon={<EmailOutlinedIcon />}
               isCollapsed={isCollapsed}
               setSelected={setSelected}
+              selected={selected}
             />
           </Box>
         </Box>

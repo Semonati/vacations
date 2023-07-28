@@ -3,6 +3,7 @@ import {
   Card,
   CardMedia,
   Container,
+  Grid,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -44,7 +45,7 @@ const VacationsDetailsPage = () => {
 
   if (!user) return <Navigate replace to={ROUTES.ROOT} />;
   return (
-    <Box m="2%">
+    <Box m="0 5%">
       <Container maxWidth="lg">
         <HeaderPage
           title="Vacations Details"
@@ -82,9 +83,106 @@ const VacationsDetailsPage = () => {
             </Box>
           </Typography>
 
-          <Box display="flex" justifyContent="space-between">
+          <Grid container display="flex" justifyContent="space-between">
+            <Grid item>
+              <Typography
+                variant="h6"
+                sx={{ display: "flex", alignItems: "center" }}
+                color="secondary"
+              >
+                <IconButton
+                  size="small"
+                  onClick={() => navigate(`${ROUTES.USER_PROFILE}/${user._id}`)}
+                >
+                  <FormatIndentIncreaseOutlinedIcon />
+                </IconButton>
+                Creator:{" "}
+                {vacation && firstLetterUpperCase(vacation.creatorName)}
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ display: "flex", alignItems: "center" }}
+                color="secondary"
+              >
+                <IconButton size="small">
+                  <LocationOnOutlinedIcon />
+                </IconButton>
+                Location:{" "}
+                {vacation &&
+                  `${vacation.address.country} ${vacation.address.city} ${
+                    vacation.address.street
+                  }  ${
+                    vacation.address.houseNumber !== 0
+                      ? vacation.address.houseNumber
+                      : ""
+                  }`}
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ display: "flex", alignItems: "center" }}
+                color="secondary"
+              >
+                <IconButton size="small">
+                  <MonetizationOnOutlinedIcon />
+                </IconButton>
+                vacation price:{" "}
+                {vacation && vacation.price ? vacation.price : 0}
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              display="flex"
+              alignItems="flex-end"
+              justifyContent="flex-start"
+            >
+              <Typography>
+                {user && vacation && user._id === vacation.user_id && (
+                  <IconButton
+                    onClick={() =>
+                      navigate(`${ROUTES.EDIT_VACATION}/${vacation._id}`)
+                    }
+                  >
+                    <EditOutlinedIcon />
+                  </IconButton>
+                )}
+              </Typography>
+
+              <Typography>
+                {user &&
+                  vacation &&
+                  (user.isAdmin || user._id === vacation.user_id) && (
+                    <>
+                      <IconButton
+                        aria-label="delete card"
+                        onClick={() => onDelete(vacation._id)}
+                      >
+                        <DeleteOutlineOutlinedIcon />
+                      </IconButton>
+                    </>
+                  )}
+              </Typography>
+            </Grid>
+          </Grid>
+
+          {vacation && (
+            <CardMedia
+              component="img"
+              image={vacation.image.url}
+              alt={vacation.image.alt}
+              sx={{ mt: "2%" }}
+            />
+          )}
+        </Card>
+      </Container>
+    </Box>
+  );
+};
+
+export default VacationsDetailsPage;
+
+/*
+   <Box display="flex" justifyContent="space-between">
             <Box>
-              {" "}
               <Typography
                 variant="h6"
                 sx={{ display: "flex", alignItems: "center" }}
@@ -95,7 +193,7 @@ const VacationsDetailsPage = () => {
                 >
                   <FormatIndentIncreaseOutlinedIcon />
                 </IconButton>
-                Vacation creator:{" "}
+                Creator:{" "}
                 {vacation && firstLetterUpperCase(vacation.creatorName)}
               </Typography>
               <Typography
@@ -155,20 +253,4 @@ const VacationsDetailsPage = () => {
               </Typography>
             </Box>
           </Box>
-
-          {vacation && (
-            <CardMedia
-              component="img"
-              height="500"
-              image={vacation.image.url}
-              alt={vacation.image.alt}
-              sx={{ mt: "2%" }}
-            />
-          )}
-        </Card>
-      </Container>
-    </Box>
-  );
-};
-
-export default VacationsDetailsPage;
+*/

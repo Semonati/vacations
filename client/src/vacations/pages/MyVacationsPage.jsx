@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { Box, Container, IconButton } from "@mui/material";
+import { Box, Button, Container, IconButton, Typography } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
 import HeaderPage from "../../components/HeaderPage";
@@ -22,15 +22,20 @@ const MyVacationsPage = () => {
   if (!user) return <Navigate replace to={ROUTES.ROOT} />;
 
   return (
-    <Box m="2%">
+    <Box m="0 5%">
       <Container sx={{ position: "relative", minHeight: "92vh" }}>
         <HeaderPage
           title="My Vacation"
           subtitle="All About My Vecations Stories"
         />
-        <IconButton onClick={() => navigate(ROUTES.CREAT_VACATION)} sx={{mb:"2%"}} size="large">
+        <Button
+          onClick={() => navigate(ROUTES.CREAT_VACATION)}
+          size="small"
+          color="secondary"
+        >
           <AddCircleOutlineOutlinedIcon />
-        </IconButton>
+          <Typography variant="text">Add vacation</Typography>
+        </Button>
         <VacationStatus
           isPending={isPending}
           error={error}
