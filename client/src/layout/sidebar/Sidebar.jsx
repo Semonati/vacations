@@ -13,34 +13,43 @@ import { tokens } from "../../theme";
 import NavItem from "../../router/components/NavItem";
 import ROUTES from "../../router/routesModel";
 import { useUser } from "../../providers/UserProviders";
+import {
+  removeMenu,
+  setHiddenMenuInLocalStorage,
+} from "../../users/services/localStorageService";
 
 const Sidebar = () => {
   const { user } = useUser();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [width, setWidth] = useState("15vw");
   const [selected, setSelected] = useState("Home");
 
-  const open = (value) => {
-    if (value === true) {
-      setWidth("-8vw");
-      return setIsCollapsed(value);
+  const openMenu = (value) => {
+    setIsCollapsed(value);
+    if (value === false) {
+      // console.log(value);
+      return setHiddenMenuInLocalStorage(value);
     }
-    setWidth("15vw");
-    return setIsCollapsed(value);
+    if (value) {
+      // console.log(value);
+      return removeMenu();
+    }
   };
+
   return (
     <Box
       sx={{
         "& .pro-sidebar": {
-          minWidth: width,
-          width: width,
+          minWidth: "15vw",
+          width: "15vw",
         },
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
           padding: "0.5% 0.5% 0 1% !important",
           position: "fixed",
+          display: "flex",
+          alignItems: "center",
         },
       }}
     >
@@ -58,7 +67,7 @@ const Sidebar = () => {
               </Typography>
             )}
 
-            <IconButton onClick={() => open(!isCollapsed)}>
+            <IconButton onClick={() => openMenu(!isCollapsed)}>
               <MenuOutlinedIcon />
             </IconButton>
           </Box>

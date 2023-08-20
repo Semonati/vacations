@@ -1,23 +1,20 @@
 import React from "react";
 import HeaderPage from "../components/HeaderPage";
-import { Box, Container, Grid, Typography, useTheme } from "@mui/material";
-import { tokens } from "../theme";
+import { Container, Grid, Typography } from "@mui/material";
 
 const AboutPage = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   return (
     <Container>
       <HeaderPage
         title="About The Site"
         subtitle="Here You Can Find All The Info About The Site"
       />
-      <Grid container display="flex" justifyContent="center" align="center">
+      <Grid container justifyContent="center" align="center">
         <Grid item xs={12} md={6}>
           <img
             src="assets/images/vacation-story.png"
             alt="vacation"
-            width="350"
+            width="380"
           />
         </Grid>
         <Grid
@@ -50,14 +47,6 @@ const AboutPage = () => {
         </Grid>
       </Grid>
 
-      <Box align="center" mt="2% 0">
-        <Typography variant="h2" color={colors.blue[300]}>
-          How to use this app ?
-        </Typography>
-      </Box>
-      <Grid container width="100%" m="2%">
-        fdvxf
-      </Grid>
     </Container>
   );
 };

@@ -1,26 +1,29 @@
 import jwtDecode from "jwt-decode";
 
-const TOKEN = "token";
+const USERTOKEN = "token";
 const PASSWORD = "passwordToken";
+const OPENMENU = "openMenu";
+
+/******** USER TOKEN ********/
 
 export const setTokenInLocalStorage = (encryptedToken) => {
-  localStorage.setItem(TOKEN, encryptedToken);
+  localStorage.setItem(USERTOKEN, encryptedToken);
 };
 
 export const getUser = () => {
   try {
-    const user = localStorage.getItem(TOKEN);
+    const user = localStorage.getItem(USERTOKEN);
     return jwtDecode(user);
   } catch (error) {
     return null;
   }
 };
 
-export const removeToken = () => localStorage.removeItem(TOKEN);
+export const removeToken = () => localStorage.removeItem(USERTOKEN);
 
-export const getToken = () => localStorage.getItem(TOKEN);
+export const getToken = () => localStorage.getItem(USERTOKEN);
 
-
+/******** PASSWORD TOKEN ********/
 
 export const setPasswordTokenInLocalStorage = (passwordToken) => {
   localStorage.setItem(PASSWORD, passwordToken);
@@ -39,3 +42,19 @@ export const getPassword = () => {
 };
 
 export const getPasswordToken = () => localStorage.getItem(PASSWORD);
+
+/******** HIDDEN MENU ********/
+
+export const setHiddenMenuInLocalStorage = (open) => {
+  localStorage.setItem(OPENMENU, open);
+};
+
+export const getMenu = (test) => {
+  try {
+    return localStorage.getItem(OPENMENU);
+  } catch (error) {
+    return null;
+  }
+};
+
+export const removeMenu = () => localStorage.removeItem(OPENMENU);

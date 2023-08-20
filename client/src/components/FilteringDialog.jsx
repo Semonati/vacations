@@ -14,7 +14,6 @@ import {
 import TuneOutlinedIcon from "@mui/icons-material/TuneOutlined";
 
 import vacationType from "../vacations/models/types/vacationType";
-import FilteringByDate from "./filteringByOptions/FilteringByDate";
 import FilteringByPrice from "./filteringByOptions/FilteringByPrice";
 import Vacations from "../vacations/components/Vacations";
 import { getColor } from "../utils/colorModeInLocalStorage";
@@ -24,7 +23,6 @@ const FilteringDialog = ({ vacations, onLike, socket }) => {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState(vacations);
   const [price, setPrice] = useState(["0", "0"]);
-  const [date, setDate] = useState(0);
 
   const handleClickOpen = () => {
     setPrice(["0", "0"]);
@@ -56,10 +54,6 @@ const FilteringDialog = ({ vacations, onLike, socket }) => {
           <DialogTitle>Title</DialogTitle>
           <DialogContent>
             <FormControl sx={{ mt: 2, width: "100%" }}>
-              <Typography align="center">Filter By Date</Typography>
-              <Box>
-                <FilteringByDate date={date} setDate={setDate} />
-              </Box>
               <Divider />
               <Typography align="center">Filter By Price</Typography>
               <Box m="2% 0">
@@ -83,7 +77,7 @@ const FilteringDialog = ({ vacations, onLike, socket }) => {
               size="large"
               onClick={handleClose}
             >
-              Close
+              Cancel
             </Button>
           </DialogActions>
         </Dialog>

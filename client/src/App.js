@@ -10,6 +10,7 @@ import { NotificationProvider } from "./providers/NotificationProvider";
 
 function App() {
   const [theme, colorMode] = useMode();
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -20,9 +21,9 @@ function App() {
               <AutoLogout>
                 <div className="app">
                   <Sidebar />
-                  <Layout>
-                    <Router />
-                  </Layout>
+                    <Layout>
+                      <Router />
+                    </Layout>
                 </div>
               </AutoLogout>
             </NotificationProvider>
