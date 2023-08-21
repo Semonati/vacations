@@ -24,7 +24,7 @@ const EnterNewPassword = () => {
 
   return (
     <Box>
-      <Box >
+      <Box display="flex" flexDirection="column" width="100%" alignItems="center">
         <HeaderPage
           title="password reset"
           subtitle="please enter the new password"
