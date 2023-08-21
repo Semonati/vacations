@@ -1,10 +1,11 @@
 import React from "react";
 import { func, object, string } from "prop-types";
+import { Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
 import Form from "../../forms/components/Form";
 import Input from "../../forms/components/Input";
 import ROUTES from "../../router/routesModel";
-import { Button, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 const UserForm = ({
   title,

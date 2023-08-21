@@ -10,18 +10,22 @@ const getIoServer = (server) => {
   });
 
   io.on("connection", (socket) => {
-
     socket.on("newUser", (userId) => {
       addUser(userId, socket.id);
     });
 
-    socket.on("sendNotification", ({ userId, fullName, status }) => {
-      const user = getUser(userId);
-      io.to(user.socketId).emit("getNotification", {
-        fullName,
-        status
-      });
-    });
+    socket.on(
+      "sendNotification",
+      ({ userId, fullName, status, vacationId }) => {
+        const user = getUser(userId);
+        io.to(user.socketId).emit("getNotification", {
+          fullName,
+          status,
+          userId,
+          vacationId,
+        });
+      }
+    );
 
     socket.on("disconnect", () => {
       removeUser(socket.id);

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
 import HeaderPage from "../../components/HeaderPage";
@@ -23,20 +23,29 @@ const ForgotPasswordPage = () => {
   if (user) return <Navigate replace to={ROUTES.ROOT} />;
 
   return (
-    <Box width="100%">
+    <Box>
       <HeaderPage
-        title="forgot you password ?"
+        title="forgot password ?"
         subtitle="please enter your email"
       />
-      <PasswordForm
-        title="forgot-password"
-        onSubmit={rest.onForgotPassword}
-        onReset={rest.handleReset}
-        onChange={rest.validateForm}
-        errors={value.errors}
-        data={value.data}
-        onInputChange={rest.handleChange}
-      />
+      <Container
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        <PasswordForm
+          title="forgot-password"
+          onSubmit={rest.onForgotPassword}
+          onReset={rest.handleReset}
+          onChange={rest.validateForm}
+          errors={value.errors}
+          data={value.data}
+          onInputChange={rest.handleChange}
+        />
+      </Container>
     </Box>
   );
 };

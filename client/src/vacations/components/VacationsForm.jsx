@@ -175,7 +175,7 @@ const VacationsForm = ({
       {title === "edit vacation" && (
         <Input
           name="updatedAt"
-          label="last updated At"
+          label="updated At"
           error={errors.updatedAt}
           onChange={onInputChange}
           data={data}

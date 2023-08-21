@@ -5,20 +5,17 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import { useNotification } from "../../../providers/NotificationProvider";
 
 const NotificationAlert = () => {
-  const { notifications } = useNotification();
-  const value = useNotification();
-  const { setIsOpen } = value;
+  const { setIsOpen, counter, setCounter } = useNotification();
+
+  const test = () => {
+    setIsOpen(true);
+    setCounter(0);
+  };
 
   return (
     <Tooltip title="Open notifications alerts">
-      <IconButton
-        sx={{ display: "inline-flex" }}
-        onClick={() => setIsOpen(notifications.length ? true : false)}
-      >
-        <Badge
-          badgeContent={notifications.length === 0 ? 0 : notifications.length}
-          color="error"
-        >
+      <IconButton sx={{ display: "inline-flex" }} onClick={() => test()}>
+        <Badge badgeContent={counter} color="error">
           <NotificationsOutlinedIcon />
         </Badge>
       </IconButton>

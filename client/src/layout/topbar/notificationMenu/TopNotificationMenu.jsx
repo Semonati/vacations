@@ -1,16 +1,16 @@
 import React from "react";
-import { Box, Menu, MenuItem } from "@mui/material";
+import { Box, ListItem, ListItemText, Menu } from "@mui/material";
 
 import { useUser } from "../../../providers/UserProviders";
-import NotificationList from "./NotificationList"
 
-const TopNotificationMenu = ({ isOpen, anchorEl, onClose, notifications }) => {
+const TopNotificationMenu = ({
+  isOpen,
+  anchorEl,
+  onClose,
+  notifications,
+}) => {
   const { user } = useUser();
 
-  const dispalyNotification = (item) => {
-    if (item.status) return `${item.fullName} liked your vacation story `;
-    return `${item.fullName} disliked your vacation story `;
-  };
   return (
     <Menu
       open={isOpen}
@@ -24,14 +24,16 @@ const TopNotificationMenu = ({ isOpen, anchorEl, onClose, notifications }) => {
       }}
     >
       <Box>
-        {user && (
-          <>
-            {/* <MenuItem>
-              {notifications.map((item) => dispalyNotification(item))}
-            </MenuItem> */}
-            <NotificationList notifications={notifications}/>
-          </>
-        )}
+        {user &&
+          notifications.map((item, index) => (
+            <ListItem key={index}>
+              <ListItemText
+                primary={`${item.fullName} ${
+                  item.status ? "liked" : "unliked"
+                } your vacation story`}
+              />
+            </ListItem>
+          ))}
       </Box>
     </Menu>
   );

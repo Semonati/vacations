@@ -1,7 +1,6 @@
 import React from "react";
-
-
 import { func, object, string } from "prop-types";
+
 import Form from "../../forms/components/Form";
 import Input from "../../forms/components/Input";
 import ROUTES from "../../router/routesModel";
@@ -21,7 +20,7 @@ const PasswordForm = ({
       onSubmit={onSubmit}
       onReset={onReset}
       onChange={onChange}
-      styles={{ maxWidth: "550px" }}
+      styles={{ minWidth: "650px" }}
       title={title}
       to={ROUTES.ROOT}
     >

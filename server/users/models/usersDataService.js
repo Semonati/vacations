@@ -3,7 +3,7 @@ const Messgaes = require("./mongoDB/ContactUs");
 const nodemailer = require("nodemailer");
 const config = require("config");
 
-const { handleBadRequest, handleError } = require("../../utils/handleErrors");
+const { handleBadRequest } = require("../../utils/handleErrors");
 const { generateAuthToken } = require("../../auth/Providers/jwt");
 const { comparePassword, generateUserPassword } = require("../helpers/bcrypt");
 const {
@@ -96,7 +96,7 @@ const userForgotPassword = async (email) => {
       let user = await User.findOne({ email });
       if (!user) return Promise.reject("User not in data base");
       const token = generateForgotPasswordToken(user);
-      const link = `http://localhost:8080/users/reset-password/${user._id}/${token}`;
+      const link = `http://localhost:8181/users/reset-password/${user._id}/${token}`;
 
       let transporter = nodemailer.createTransport({
         service: "gmail",

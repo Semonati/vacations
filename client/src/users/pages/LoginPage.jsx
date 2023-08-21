@@ -25,7 +25,7 @@ const LoginPage = () => {
 
   return (
     <Box>
-      <Box>
+      <Box display="flex" flexDirection="column" alignItems="center">
         <HeaderPage
           title="Login"
           subtitle="please login to create youe own vacation story"

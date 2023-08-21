@@ -13,6 +13,7 @@ export const NotificationProvider = ({ children }) => {
   const screenSize = useMediaQuery(theme.breakpoints.up("md"));
   const [isOpen, setIsOpen] = useState();
   const [notifications, setNotifications] = useState([]);
+  const [counter, setCounter] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const anchorRef = useRef();
   const { socket } = Socketio();
@@ -21,6 +22,7 @@ export const NotificationProvider = ({ children }) => {
     if (socket) {
       socket.on("getNotification", (data) => {
         setNotifications((prev) => [...prev, data]);
+        setCounter((prev) => prev + 1);
       });
     }
   }, [socket]);
@@ -28,13 +30,14 @@ export const NotificationProvider = ({ children }) => {
   useEffect(() => {
     setAnchorEl(anchorRef.current);
   }, []);
+
   useEffect(() => {
     setIsOpen(false);
   }, [screenSize]);
 
   const value = useMemo(() => {
-    return { setIsOpen, socket, notifications };
-  }, [setIsOpen, socket, notifications]);
+    return { setIsOpen, socket, notifications, counter, setCounter };
+  }, [setIsOpen, socket, notifications, counter, setCounter]);
 
   return (
     <>
@@ -45,7 +48,7 @@ export const NotificationProvider = ({ children }) => {
         ref={anchorRef}
         position="fixed"
         top="10%"
-        right="8%"
+        right="6%"
         width="100%"
       ></Box>
       {anchorEl && (
@@ -54,6 +57,8 @@ export const NotificationProvider = ({ children }) => {
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
           notifications={notifications}
+          counter={counter}
+          setCounter={() => setCounter(0)}
         />
       )}
     </>
@@ -72,7 +77,7 @@ const Socketio = () => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    if (user) setSocket(io("http://localhost:8080"));
+    if (user) setSocket(io("http://localhost:8181"));
   }, [user]);
 
   useEffect(() => {

@@ -59,9 +59,6 @@ const useForm = (initialForm, schema, handleSubmit) => {
 
   const onSubmit = useCallback(
     (action) => {
-      if (action === "edit") {
-        data.updatedAt = new Date().toLocaleDateString();
-      }
       if (action !== "login")
         if (data.password !== data.confirmPassword)
           return snack("error", "The password you enter are not match");

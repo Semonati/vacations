@@ -39,6 +39,7 @@ const VacationBody = ({ vacation, socket, onLike = () => {} }) => {
     changeLikeValue(isLike);
     socket.emit("sendNotification", {
       userId: user._id,
+      vacationId: vacation._id,
       fullName: `${user.name.first} ${user.name.last}`,
       status: !isLike,
     });

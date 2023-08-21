@@ -36,12 +36,8 @@ const validateVacationWithJoi = (vacation) => {
     }),
     price: Joi.number().allow(""),
     user_id: Joi.string().allow(""),
-      createdAt: Joi.string().ruleset.regex(
-    /^\s*(3[01]|[12][0-9]|0?[1-9])\/(1[012]|0?[1-9])\/((?:19|20)\d{2})\s*$/
-  ),
-  updatedAt: Joi.string().ruleset.regex(
-    /^\s*(3[01]|[12][0-9]|0?[1-9])\/(1[012]|0?[1-9])\/((?:19|20)\d{2})\s*$/
-  ),
+    updatedAt: Joi.string().allow(""),
+    createdAt: Joi.string().allow(""),
   });
   return schema.validate(vacation);
 };

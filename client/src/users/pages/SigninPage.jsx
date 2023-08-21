@@ -25,7 +25,7 @@ const SigninPage = () => {
   
   return (
     <Box>
-      <Box>
+      <Box display="flex" flexDirection="column" alignItems="center">
         <HeaderPage
           title="Signup"
           subtitle="please Signup to create youe own vacation story"
@@ -51,7 +51,7 @@ const SigninPage = () => {
           data={value.data}
           onInputChange={rest.handleChange}
           setData={rest.setData}
-        />        
+        />
       </Container>
     </Box>
   );

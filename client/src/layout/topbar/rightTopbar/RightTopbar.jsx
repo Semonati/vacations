@@ -9,15 +9,12 @@ import NotLogged from "./NotLogged";
 import Logged from "./Logged";
 import { setColorModeInLocalStorage } from "../../../utils/colorModeInLocalStorage";
 import NotificationAlert from "../notificationMenu/NotificationAlert";
-import { useNotification } from "../../../providers/NotificationProvider";
 
 const RightTopbar = () => {
   const { user } = useUser();
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
-  const { socket } = useNotification();
   setColorModeInLocalStorage(theme.palette.mode);
-
 
   return (
     <Box display="flex">
@@ -28,7 +25,7 @@ const RightTopbar = () => {
           <LightModeOutlinedIcon />
         )}
       </IconButton>
-      {user && <NotificationAlert socket={socket} />}
+      {user && <NotificationAlert />}
       {!user && <NotLogged />}
       {user && <Logged />}
     </Box>
