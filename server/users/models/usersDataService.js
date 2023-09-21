@@ -96,7 +96,7 @@ const userForgotPassword = async (email) => {
       let user = await User.findOne({ email });
       if (!user) return Promise.reject("User not in data base");
       const token = generateForgotPasswordToken(user);
-      const link = `http://localhost:8181/users/reset-password/${user._id}/${token}`;
+      const link = `http://localhost:8080/users/reset-password/${user._id}/${token}`;
 
       let transporter = nodemailer.createTransport({
         service: "gmail",

@@ -1,9 +1,8 @@
 import axios from "axios";
 import { getPasswordToken } from "./localStorageService";
 
-// const PORT = 8080;
-const apiUrl = process.env.REACT_APP_API_URL || `http://localhost:8181`;
-// const apiUrl = process.env.REACT_APP_API_URL || `http://localhost:${PORT}`;
+const PORT = 8080;
+const apiUrl = process.env.REACT_APP_API_URL || `http://localhost:${PORT}`;
 
 export const getUsers = async () => {
   try {
