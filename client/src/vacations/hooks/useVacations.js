@@ -3,7 +3,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import useAxios from "../../hooks/useAxios";
 import { useSnackBar } from "../../providers/SnackBarProvifer";
 import ROUTES from "../../router/routesModel";
-import normalizevacation from "../helpers/normalization/normalizaeVacation";
+import normalizeVacation from "../helpers/normalization/normalizaeVacation";
 import {
   getVacations,
   changeLikeStatus,
@@ -85,7 +85,7 @@ const useVacations = () => {
   const handleCreateVacation = useCallback(async (vacationFromClient) => {
     try {
       setIsPending(true);
-      const normelizedvacation = normalizevacation(vacationFromClient);
+      const normelizedvacation = normalizeVacation(vacationFromClient);
       const vacation = await createVacation(normelizedvacation);
       snack("success", "A new vacation was seccessfully created");
       return requestStatus(false, null, vacation);

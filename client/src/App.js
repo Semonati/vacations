@@ -1,5 +1,5 @@
-import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import { ColorModeContext, useMode } from "./theme";
 import Sidebar from "./layout/sidebar/Sidebar";
 import Router from "./router/Router";
 import { UserProvider } from "./providers/UserProviders";

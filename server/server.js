@@ -6,11 +6,9 @@ const mongoose = require("mongoose");
 const router = require("./router/router");
 const cors = require("./middlewares/cors");
 const logger = require("./logger/loggerService");
-const connectToDb = require("./DB/dbService");
 const { handleError } = require("./utils/handleErrors");
+const connectToDb = require("./DB/dbService");
 const {
-  addUser,
-  removeUser,
   getIoServer,
 } = require("./users/helpers/socketio");
 const app = express();

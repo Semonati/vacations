@@ -28,11 +28,9 @@ const Sidebar = () => {
   const openMenu = (value) => {
     setIsCollapsed(value);
     if (value === false) {
-      // console.log(value);
       return setHiddenMenuInLocalStorage(value);
     }
     if (value) {
-      // console.log(value);
       return removeMenu();
     }
   };

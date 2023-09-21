@@ -1,8 +1,8 @@
-const User = require("./mongoDB/Users");
-const Messgaes = require("./mongoDB/ContactUs");
 const nodemailer = require("nodemailer");
 const config = require("config");
 
+const User = require("./mongoDB/Users");
+const Messgaes = require("./mongoDB/ContactUs");
 const { handleBadRequest } = require("../../utils/handleErrors");
 const { generateAuthToken } = require("../../auth/Providers/jwt");
 const { comparePassword, generateUserPassword } = require("../helpers/bcrypt");
