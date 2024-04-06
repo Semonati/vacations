@@ -14,13 +14,12 @@ const PasswordForm = ({
   data,
   onInputChange,
 }) => {
-
   return (
     <Form
       onSubmit={onSubmit}
       onReset={onReset}
       onChange={onChange}
-      styles={{ minWidth: "650px" }}
+      styles={{ width: "650px" }}
       title={title}
       to={ROUTES.ROOT}
     >

@@ -8,14 +8,13 @@ const cors = require("./middlewares/cors");
 const logger = require("./logger/loggerService");
 const { handleError } = require("./utils/handleErrors");
 const connectToDb = require("./DB/dbService");
-const {
-  getIoServer,
-} = require("./users/helpers/socketio");
+const { getIoServer } = require("./users/helpers/socketio");
 const app = express();
 
 app.use(cors);
 app.use(logger);
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./public"));
 app.use(router);
 mongoose.set("strictQuery", false);

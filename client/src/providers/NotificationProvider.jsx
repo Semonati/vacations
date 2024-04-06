@@ -77,7 +77,7 @@ const Socketio = () => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    if (user) setSocket(io("http://localhost:8080"));
+    if (user) setSocket(io("http://localhost:8181"));
   }, [user]);
 
   useEffect(() => {

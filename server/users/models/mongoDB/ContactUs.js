@@ -14,7 +14,6 @@ const messageSchema = new mongoose.Schema({
     match: RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/),
     lowercase: true,
     trim: true,
-    unique: true,
   },
   subject: {
     type: String,
@@ -36,6 +35,6 @@ const messageSchema = new mongoose.Schema({
   },
 });
 
-const Messgaes = mongoose.model("messgaes", messageSchema);
+const Messages = mongoose.model("messages", messageSchema);
 
-module.exports = Messgaes;
+module.exports = Messages;

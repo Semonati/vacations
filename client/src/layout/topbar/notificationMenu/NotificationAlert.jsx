@@ -7,14 +7,14 @@ import { useNotification } from "../../../providers/NotificationProvider";
 const NotificationAlert = () => {
   const { setIsOpen, counter, setCounter } = useNotification();
 
-  const test = () => {
+  const openNotificationMenu = () => {
     setIsOpen(true);
     setCounter(0);
   };
 
   return (
     <Tooltip title="Open notifications alerts">
-      <IconButton sx={{ display: "inline-flex" }} onClick={() => test()}>
+      <IconButton sx={{ display: "inline-flex" }} onClick={() => openNotificationMenu()}>
         <Badge badgeContent={counter} color="error">
           <NotificationsOutlinedIcon />
         </Badge>

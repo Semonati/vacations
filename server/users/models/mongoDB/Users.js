@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     trim: true,
     unique: true,
+    upsert: true,
   },
   address: Address,
   aboutMe: {

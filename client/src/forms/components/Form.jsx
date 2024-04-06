@@ -28,7 +28,6 @@ const Form = ({
       noValidate
       mb="2%"
     >
-
       <Grid container spacing={spacing}>
         {children}
       </Grid>

@@ -2,7 +2,8 @@ const nodemailer = require("nodemailer");
 const config = require("config");
 
 const User = require("./mongoDB/Users");
-const Messgaes = require("./mongoDB/ContactUs");
+const Vacation = require("../../vacation/models/mongoDB/Vacation");
+const Messages = require("./mongoDB/ContactUs");
 const { handleBadRequest } = require("../../utils/handleErrors");
 const { generateAuthToken } = require("../../auth/Providers/jwt");
 const { comparePassword, generateUserPassword } = require("../helpers/bcrypt");
@@ -96,7 +97,7 @@ const userForgotPassword = async (email) => {
       let user = await User.findOne({ email });
       if (!user) return Promise.reject("User not in data base");
       const token = generateForgotPasswordToken(user);
-      const link = `http://localhost:8080/users/reset-password/${user._id}/${token}`;
+      const link = `http://localhost:8181/users/reset-password/${user._id}/${token}`;
 
       let transporter = nodemailer.createTransport({
         service: "gmail",
@@ -189,13 +190,8 @@ const updateUser = async (userId, data) => {
 const deleteUser = async (_id) => {
   if (DB === "MONGODB") {
     try {
-      const user = await User.findByIdAndDelete(
-        { _id },
-        {
-          __v: 0,
-          password: 0,
-        }
-      );
+      const user = await User.findByIdAndDelete({ _id });
+      await Vacation.deleteMany({ user_id: _id });
       if (!user)
         return Promise.reject(
           "Could not delete this user because a user with this ID cannot found in the database"
@@ -214,7 +210,7 @@ const contactUsMessage = async (data) => {
     try {
       let transporter = nodemailer.createTransport({
         service: "gmail",
-        secure: true,
+        secure: false,
         auth: {
           user: EMAIL,
           pass: PASSWORD,
@@ -222,14 +218,15 @@ const contactUsMessage = async (data) => {
       });
 
       await transporter.sendMail({
-        from: data.email,
+        from: `${data?.name.first} ${data?.name.last} <${data.email}>`,
         to: EMAIL,
         subject: data.subject,
-        text: data.message,
+        text: `${data.message}.
+        Email for respond: ${data.email}`,
       });
 
-      let messgae = new Messgaes(data);
-      messgae = await messgae.save();
+      let message = new Messages(data);
+      message = message.save();
       return Promise.resolve("The message was send seccessfully");
     } catch (error) {
       error.status = 404;

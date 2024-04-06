@@ -80,7 +80,7 @@ router.post("/login", async (req, res) => {
     const { error } = validateLogin(user);
     if (error)
       return handleError(res, 400, `Joi Error: ${error.details[0].message}`);
-    user = await loginUser(user,res);
+    user = await loginUser(user, res);
     return res.status(200).send(user);
   } catch (error) {
     return handleError(res, error.status || 404, error);
@@ -103,12 +103,11 @@ router.post("/forgot-password", async (req, res) => {
 router.get("/reset-password/:id/:token", async (req, res) => {
   try {
     const { id, token } = req.params;
+    const resetLink = "http://localhost:3000/enter-new-password";
     let password = await userPasswordTokenVerifay(id, token);
     if (!password)
       return res.status(404).send("This link is no more available to use");
-    return res.send(
-      require("openurl").open("http://localhost:3000/enter-new-password")
-    );
+    return res.send(`Open the link to reset the password:  ${resetLink}`);
   } catch (error) {
     return handleError(res, error.status || 500, error);
   }
