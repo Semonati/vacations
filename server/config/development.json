@@ -1,0 +1,10 @@
+{
+    "NODE_ENV": "development",
+    "PORT": "8080",
+    "TOKEN_GENERATOR": "jwt",
+    "FORGOT_PASSWORD": "jwt-password",
+    "DB_NAME": null,
+    "DB_PASSWORD": null,
+    "LOGGER": "morgan",
+    "DB": "MONGODB"
+}
